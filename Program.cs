@@ -4,6 +4,8 @@ namespace BikeStoreManagement
 {
     internal class Program
     {
+        //try
+
         //mountainpeak info
         private static int mtpPrice = 25000;
         private static string mtpFrameSet = "Mountain Peak Ninja II\nMountain Peak remote lock out air fork 100mm ";
