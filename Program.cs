@@ -4,7 +4,7 @@ namespace BikeStoreManagement
 {
     internal class Program
     {
-        //try
+       
 
         //mountainpeak info
         private static int mtpPrice = 25000;
