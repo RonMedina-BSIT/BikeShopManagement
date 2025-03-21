@@ -5,6 +5,7 @@ namespace BikeStoreManagement
     internal class Program
     {
        
+        
 
         //mountainpeak info
         private static int mtpPrice = 25000;
@@ -390,7 +391,7 @@ namespace BikeStoreManagement
         }
         static void RoadBikes()
         {
-            Console.WriteLine("Select a Brand for MountainBike");
+            Console.WriteLine("Select a Brand for RoadBike");
 
             string[] actions = new string[] { "[1] Giant", "[2] Cervelo ", "[3] Cannondale" };
             Console.WriteLine("ACTIONS");
