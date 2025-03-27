@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BSM_BusinessDataLogic
 {
-    //try
+    
     public class BMSProcess
     {
         static string adminpassword = "admin";
