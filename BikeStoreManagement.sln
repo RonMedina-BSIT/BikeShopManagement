@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.13.35825.156 d17.13
+VisualStudioVersion = 17.13.35825.156
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BikeShopManagementSystem", "BikeShopManagementSystem.csproj", "{209D6D99-896A-46E2-B9DF-EF0F31423107}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BSM_BusinessDataLogic", "BSM_BusinessDataLogic\BSM_BusinessDataLogic.csproj", "{D8103AD1-9FC8-BA66-99AC-7513CA51FD7E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{209D6D99-896A-46E2-B9DF-EF0F31423107}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{209D6D99-896A-46E2-B9DF-EF0F31423107}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{209D6D99-896A-46E2-B9DF-EF0F31423107}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D8103AD1-9FC8-BA66-99AC-7513CA51FD7E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D8103AD1-9FC8-BA66-99AC-7513CA51FD7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D8103AD1-9FC8-BA66-99AC-7513CA51FD7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D8103AD1-9FC8-BA66-99AC-7513CA51FD7E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
