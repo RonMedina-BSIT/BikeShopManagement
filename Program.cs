@@ -31,7 +31,7 @@ namespace BikeStoreManagement
             Console.WriteLine("-------------------------");
             Console.WriteLine("SELECT ACTION");
 
-            string[] actions = new string[] { "[1] Mountain Bikes", "[2] Road Bikes", "[3] Add Bike", "[4] Delete", "[5] Update Bike Specs","[6] Display" };
+            string[] actions = new string[] {  "[1] Show Bikes ", "[2] Add Bike", "[3] Delete Bike","[4] Update Bike Info" };
             Console.WriteLine("ACTIONS");
 
             foreach (var action in actions)
@@ -48,27 +48,20 @@ namespace BikeStoreManagement
             {
                 case 1:
                     Console.WriteLine("-------------------------");
-                    MountainBikes();
+                   DisplayBikes();
                     break;
                 case 2:
-                    Console.WriteLine("-------------------------");
-                    RoadBikes();
-                    break;
-
-                case 3:
                     Console.WriteLine("-------------------------");
                     AddBike();
                     break;
+
+                case 3:
+                    Console.WriteLine("-------------------------");
+                   Delete();
+                    break;
                 case 4:
                     Console.WriteLine("-------------------------");
-                    Delete();
-                    break;
-                case 5:
-                    Update();
-                    break;
-                case 6:
-                    Console.WriteLine("-------------------------");
-                    DisplayallAction();
+                   Update();
                     break;
                 default:
                     Console.WriteLine("Invalid Action");
@@ -78,131 +71,13 @@ namespace BikeStoreManagement
             }
 
         }
-        static void MountainBikes()
-        {
-
-            BikeDataService bikeDataService = new BikeDataService();
-
-            Console.WriteLine("Select a Brand for MountainBike");
-
-            string[] actions = new string[] { "[0] MountainPeak", "[1] Trek ", "[2] Orbea" };
-            Console.WriteLine("ACTIONS");
-
-            foreach (var action in actions)
-            {
-                Console.WriteLine(action);
-            }
-            Console.WriteLine("-------------------------");
-            Console.Write("Enter Action: ");
-
-            int userAction = Convert.ToInt16(Console.ReadLine());
-
-            switch (userAction)
-            {
-                case 0:
-
-
-                    Bikeparts mtp = BikeDataService.BikeInfo[0];
-
-                    Console.WriteLine("-------------------------");
-                    Console.WriteLine("Brand: " + mtp.Brand);
-                    Console.WriteLine("Price: " + mtp.Price);
-                    Console.WriteLine("Frameset: " + mtp.Frameset);
-                    Console.WriteLine("Groupset: " + mtp.Groupset);
-                    Console.WriteLine("Wheelset: " + mtp.Wheelset);
-                    ShowMenu();
-                    break;
-                case 1:
-
-                    Bikeparts trek = BikeDataService.BikeInfo[1];
-                    Console.WriteLine("---------------");
-                    Console.WriteLine("Brand: " + trek.Brand);
-                    Console.WriteLine("Price: " + trek.Price);
-                    Console.WriteLine("Frameset: " + trek.Frameset);
-                    Console.WriteLine("Groupset: " + trek.Groupset);
-                    Console.WriteLine("Wheelset: " + trek.Wheelset);
-                    ShowMenu();
-                    break;
-                case 2:
-                    Bikeparts orbea = BikeDataService.BikeInfo[2];
-                    Console.WriteLine("---------------");
-                    Console.WriteLine("Brand: " + orbea.Brand);
-                    Console.WriteLine("Price: " + orbea.Price);
-                    Console.WriteLine("Frameset: " + orbea.Frameset);
-                    Console.WriteLine("Groupset: " + orbea.Groupset);
-                    Console.WriteLine("Wheelset: " + orbea.Wheelset);
-                    ShowMenu();
-                    break;
-                default:
-                    Console.WriteLine("Invalid Action");
-                    ShowMenu();
-                    break;
-            }
-
-        }
-        static void RoadBikes()
-        {
-            BikeDataService bikeDataService = new BikeDataService();
-
-            ;
-            Console.WriteLine("Select a Brand for RoadBike");
-
-            string[] actions = new string[] { "[1] Giant", "[2] Cervelo ", "[3] Cannondale" };
-            Console.WriteLine("ACTIONS");
-
-            foreach (var action in actions)
-            {
-                Console.WriteLine(action);
-            }
-            Console.WriteLine("-------------------------");
-            Console.Write("Enter Action: ");
-
-            int userAction = Convert.ToInt16(Console.ReadLine());
-
-            switch (userAction)
-            {
-                case 1:
-                    Bikeparts giant = BikeDataService.BikeInfo[3];
-                    Console.WriteLine("-------------------------");
-                    Console.WriteLine("Brand: " + giant.Brand);
-                    Console.WriteLine("Price: " + giant.Price);
-                    Console.WriteLine("Frameset: " + giant.Frameset);
-                    Console.WriteLine("Groupset: " + giant.Groupset);
-                    Console.WriteLine("Wheelset: " + giant.Wheelset);
-                    ShowMenu();
-                    break;
-                case 2:
-                    Bikeparts cervelo = BikeDataService.BikeInfo[4];
-                    Console.WriteLine("-------------------------");
-                    Console.WriteLine("Brand: " + cervelo.Brand);
-                    Console.WriteLine("Price: " + cervelo.Price);
-                    Console.WriteLine("Frameset: " + cervelo.Frameset);
-                    Console.WriteLine("Groupset: " + cervelo.Groupset);
-                    Console.WriteLine("Wheelset: " + cervelo.Wheelset);
-                    ShowMenu();
-                    break;
-                case 3:
-                    Bikeparts cannondale = BikeDataService.BikeInfo[5];
-                    Console.WriteLine("-------------------------");
-                    Console.WriteLine("Brand: " + cannondale.Brand);
-                    Console.WriteLine("Price: " + cannondale.Price);
-                    Console.WriteLine("Frameset: " + cannondale.Frameset);
-                    Console.WriteLine("Groupset: " + cannondale.Groupset);
-                    Console.WriteLine("Wheelset: " + cannondale.Wheelset);
-                    ShowMenu();
-                    break;
-                default:
-                    Console.WriteLine("Invalid Input");
-                    break;
-            }
-        }
-
-        static void DisplayallAction()
+        static void DisplayBikes()
         {
             BikeDataService bikeDataService = new BikeDataService();
 
             foreach (Bikeparts bike in BikeDataService.BikeInfo)
             {
+                Console.WriteLine(bike.BikeType);
                 Console.WriteLine("Brand: " + bike.Brand);
                 Console.WriteLine("Price:" + bike.Price);
                 Console.WriteLine("FrameSet:" + bike.Frameset);
@@ -258,6 +133,7 @@ namespace BikeStoreManagement
             {
                 Console.WriteLine(action);
             }
+            Console.WriteLine("-------------------------");
             Console.Write("Enter Action: ");
 
             int userActionBikepart = Convert.ToInt16(Console.ReadLine());
@@ -300,6 +176,8 @@ namespace BikeStoreManagement
             BikeDataService bikeDataService = new BikeDataService();
             Bikeparts addNewBike = BikeDataService.BikeInfo[6];
 
+            Console.Write("Enter Bike type: ");
+            addNewBike.BikeType = Console.ReadLine();
 
             Console.Write("Enter Bike Brand: ");
             addNewBike.Brand = Console.ReadLine();
@@ -349,6 +227,7 @@ namespace BikeStoreManagement
 
                     foreach (Bikeparts bike in BikeDataService.BikeInfo)
                     {
+                        Console.WriteLine(bike.BikeType);
                         Console.WriteLine("Brand: " + bike.Brand);
                         Console.WriteLine("Price:" + bike.Price);
                         Console.WriteLine("FrameSet:" + bike.Frameset);
@@ -366,6 +245,7 @@ namespace BikeStoreManagement
 
                     foreach (Bikeparts bike in BikeDataService.BikeInfo)
                     {
+                        Console.WriteLine(bike.BikeType);
                         Console.WriteLine("Brand: " + bike.Brand);
                         Console.WriteLine("Price:" + bike.Price);
                         Console.WriteLine("FrameSet:" + bike.Frameset);
@@ -382,6 +262,7 @@ namespace BikeStoreManagement
 
                     foreach (Bikeparts bike in BikeDataService.BikeInfo)
                     {
+                        Console.WriteLine(bike.BikeType);
                         Console.WriteLine("Brand: " + bike.Brand);
                         Console.WriteLine("Price:" + bike.Price);
                         Console.WriteLine("FrameSet:" + bike.Frameset);
@@ -399,6 +280,7 @@ namespace BikeStoreManagement
 
                     foreach (Bikeparts bike in BikeDataService.BikeInfo)
                     {
+                        Console.WriteLine(bike.BikeType);
                         Console.WriteLine("Brand: " + bike.Brand);
                         Console.WriteLine("Price:" + bike.Price);
                         Console.WriteLine("FrameSet:" + bike.Frameset);
@@ -415,6 +297,7 @@ namespace BikeStoreManagement
 
                     foreach (Bikeparts bike in BikeDataService.BikeInfo)
                     {
+                        Console.WriteLine(bike.BikeType);
                         Console.WriteLine("Brand: " + bike.Brand);
                         Console.WriteLine("Price:" + bike.Price);
                         Console.WriteLine("FrameSet:" + bike.Frameset);
@@ -430,6 +313,7 @@ namespace BikeStoreManagement
 
                     foreach (Bikeparts bike in BikeDataService.BikeInfo)
                     {
+                        Console.WriteLine(bike.BikeType);
                         Console.WriteLine("Brand: " + bike.Brand);
                         Console.WriteLine("Price:" + bike.Price);
                         Console.WriteLine("FrameSet:" + bike.Frameset);
@@ -445,6 +329,7 @@ namespace BikeStoreManagement
 
                     foreach (Bikeparts bike in BikeDataService.BikeInfo)
                     {
+                        Console.WriteLine(bike.BikeType);
                         Console.WriteLine("Brand: " + bike.Brand);
                         Console.WriteLine("Price:" + bike.Price);
                         Console.WriteLine("FrameSet:" + bike.Frameset);

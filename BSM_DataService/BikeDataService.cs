@@ -17,6 +17,7 @@ namespace BSM_DataService
                 return;//Para hindi mag duplicate sa mga loop
 
             Bikeparts mtp = new Bikeparts();
+            mtp.BikeType = "Mountain Bike";
             mtp.Brand="MountainPeak";
             mtp.Price = 25000;
             mtp.Frameset = "Mountain Peak Ninja II\nMountain Peak remote lock out air fork 100mm ";
@@ -26,6 +27,7 @@ namespace BSM_DataService
 
 
             Bikeparts trek = new Bikeparts();
+            trek.BikeType = "Mountain Bike";
             trek.Brand = "Trek";
             trek.Price = 25990;
             trek.Frameset = "Alpha Silver Aluminum, internal routing\nspring, preload, 42mm offset for 27.5'' wheel, 100mm";
@@ -34,6 +36,7 @@ namespace BSM_DataService
             BikeInfo.Add(trek);
 
             Bikeparts orbea = new Bikeparts();
+            orbea.BikeType = "Mountain Bike";
             orbea.Brand = "Orbea";
             orbea.Price = 85000;
             orbea.Frameset = "FRAME: Orbea Alma Hydro Alloy, Boost 12x148, BSA BB, Internal cable routing.\nFORK: SR Suntour RAIDON 32 100mm Boost";
@@ -42,6 +45,7 @@ namespace BSM_DataService
             BikeInfo.Add(orbea);
 
             Bikeparts giant = new Bikeparts();
+            giant.BikeType = "Road Bike";
             giant.Brand = "Giant";
             giant.Price = 240000;
             giant.Frameset = "Frame: Advanced-grade composite, disc\nFork: Advanced-grade composite, full-composite OverDrive Aero steerer, disc";
@@ -50,6 +54,7 @@ namespace BSM_DataService
             BikeInfo.Add(giant);
 
             Bikeparts cervelo = new Bikeparts();
+            cervelo.BikeType = "Road Bike";
             cervelo.Brand = "Cervelo";
             cervelo.Price = 179990;
             cervelo.Frameset = "Frame: Caledonia (2024) Endurance Carbon\nFork: Tapered Caledonia Fork ";
@@ -58,6 +63,7 @@ namespace BSM_DataService
             BikeInfo.Add(cervelo);
 
             Bikeparts cannondale = new Bikeparts();
+            cannondale.BikeType = "Road Bike";
             cannondale.Brand = "Cannondale";
             cannondale.Price = 49000;
             cannondale.Frameset = "Frame: SmartForm C2 Alloy\nFork: CAAD Optimo Full Carbon";
@@ -66,6 +72,7 @@ namespace BSM_DataService
             BikeInfo.Add(cannondale);
 
             Bikeparts addBike = new Bikeparts();
+            addBike.BikeType = "";
             addBike.Brand = "";
             addBike.Price = 0;
             addBike.Frameset = "";
