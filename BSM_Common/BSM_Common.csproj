@@ -6,9 +6,4 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\BSM_Common\BSM_Common.csproj" />
-    <ProjectReference Include="..\BSM_DataService\BSM_DataService.csproj" />
-  </ItemGroup>
-
 </Project>

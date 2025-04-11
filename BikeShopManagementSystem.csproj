@@ -9,12 +9,19 @@
 
   <ItemGroup>
     <Compile Remove="BSM_BusinessDataLogic\**" />
+    <Compile Remove="BSM_Common\**" />
+    <Compile Remove="BSM_DataService\**" />
     <EmbeddedResource Remove="BSM_BusinessDataLogic\**" />
+    <EmbeddedResource Remove="BSM_Common\**" />
+    <EmbeddedResource Remove="BSM_DataService\**" />
     <None Remove="BSM_BusinessDataLogic\**" />
+    <None Remove="BSM_Common\**" />
+    <None Remove="BSM_DataService\**" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="BSM_BusinessDataLogic\BSM_BusinessDataLogic.csproj" />
+    <ProjectReference Include="BSM_DataService\BSM_DataService.csproj" />
   </ItemGroup>
 
 </Project>

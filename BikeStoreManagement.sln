@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BikeShopManagementSystem", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BSM_BusinessDataLogic", "BSM_BusinessDataLogic\BSM_BusinessDataLogic.csproj", "{D8103AD1-9FC8-BA66-99AC-7513CA51FD7E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BSM_Common", "BSM_Common\BSM_Common.csproj", "{68C2FF72-32D2-41A7-AC17-A7B0395EA45F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BSM_DataService", "BSM_DataService\BSM_DataService.csproj", "{309600DC-F7C0-4F61-9383-727FB699F154}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{D8103AD1-9FC8-BA66-99AC-7513CA51FD7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D8103AD1-9FC8-BA66-99AC-7513CA51FD7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D8103AD1-9FC8-BA66-99AC-7513CA51FD7E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{68C2FF72-32D2-41A7-AC17-A7B0395EA45F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68C2FF72-32D2-41A7-AC17-A7B0395EA45F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68C2FF72-32D2-41A7-AC17-A7B0395EA45F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68C2FF72-32D2-41A7-AC17-A7B0395EA45F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{309600DC-F7C0-4F61-9383-727FB699F154}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{309600DC-F7C0-4F61-9383-727FB699F154}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{309600DC-F7C0-4F61-9383-727FB699F154}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{309600DC-F7C0-4F61-9383-727FB699F154}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

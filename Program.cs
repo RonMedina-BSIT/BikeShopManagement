@@ -1,5 +1,7 @@
 ﻿using System.ComponentModel;
 using BSM_BusinessDataLogic;
+using BSM_Common;
+using BSM_DataService;
 namespace BikeStoreManagement
 {
     internal class Program
@@ -12,28 +14,33 @@ namespace BikeStoreManagement
             Console.Write("Enter Admin's Password to Continue: ");
             string password = Console.ReadLine();
 
-            while (!BMSProcess.ValidateAdmin(password))
+            while (!BSMService.ValidateAdmin(password))
             {
+                Console.WriteLine("-------------------------");
                 Console.WriteLine("Invalid Password");
+                Console.WriteLine("-------------------------");
                 Console.Write("Enter Admin's Password to Continue: ");
                 password = Console.ReadLine();
             }
 
-            ShowBikeAction();
+            Menu();
 
         }
-        static void ShowBikeAction()
+        static void Menu()
         {
-            Console.WriteLine("Select a Type Of Bike");
+            Console.WriteLine("-------------------------");
+            Console.WriteLine("SELECT ACTION");
 
-            string[] actions = new string[] { "[1] Mountain Bikes", "[2] Road Bikes", "[3] Display All", "[4] Add Bike" };
+            string[] actions = new string[] { "[1] Mountain Bikes", "[2] Road Bikes", "[3] Add Bike", "[4] Delete", "[5] Update Bike Specs","[6] Display" };
             Console.WriteLine("ACTIONS");
 
             foreach (var action in actions)
             {
                 Console.WriteLine(action);
             }
+            Console.WriteLine("-------------------------");
             Console.Write("Enter Action: ");
+
 
             int userAction = Convert.ToInt16(Console.ReadLine());
 
@@ -50,44 +57,22 @@ namespace BikeStoreManagement
 
                 case 3:
                     Console.WriteLine("-------------------------");
-                    DisplayallAction();
+                    AddBike();
                     break;
                 case 4:
                     Console.WriteLine("-------------------------");
-                    Console.Write("Enter Bike Brand: ");
-                    string NewBikeBrand = Console.ReadLine();
-                    BMSProcess.addBikeBrand = NewBikeBrand;
-
-
-                    Console.Write("Enter Price: ");
-                    int NewBikePrice = Convert.ToInt32(Console.ReadLine());
-                    BMSProcess.addBikePrice = NewBikePrice;
-
-                    Console.Write("Enter FrameSet: ");
-                    string NewBikeFrameSet = Console.ReadLine();
-                    BMSProcess.addBikeFrameSet = NewBikeFrameSet;
-
-                    Console.Write("Enter GroupSet: ");
-                    string NewBikeGroupSet = Console.ReadLine();
-                    BMSProcess.addBikeGroupSet = NewBikeGroupSet;
-
-                    Console.Write("Enter WheelSet: ");
-                    string NewBikeWheelSet = Console.ReadLine();
-                    BMSProcess.addBikeWheelSet = NewBikeWheelSet;
-
-                    Console.WriteLine("Bike Added Successfully");
+                    Delete();
+                    break;
+                case 5:
+                    Update();
+                    break;
+                case 6:
                     Console.WriteLine("-------------------------");
-                    Console.WriteLine("Brand: " + BMSProcess.addBikeBrand);
-                    Console.WriteLine("Price: " + BMSProcess.addBikePrice);
-                    Console.WriteLine("FrameSet: " + BMSProcess.addBikeFrameSet);
-                    Console.WriteLine("GroupSet: " + BMSProcess.addBikeGroupSet);
-                    Console.WriteLine("WheelSet: " + BMSProcess.addBikeWheelSet);
-                    showMenu();
-
+                    DisplayallAction();
                     break;
                 default:
                     Console.WriteLine("Invalid Action");
-                    showMenu();
+                    ShowMenu();
                     break;
 
             }
@@ -96,307 +81,70 @@ namespace BikeStoreManagement
         static void MountainBikes()
         {
 
+            BikeDataService bikeDataService = new BikeDataService();
 
             Console.WriteLine("Select a Brand for MountainBike");
 
-            string[] actions = new string[] { "[1] MountainPeak", "[2] Trek ", "[3] Orbea" };
+            string[] actions = new string[] { "[0] MountainPeak", "[1] Trek ", "[2] Orbea" };
             Console.WriteLine("ACTIONS");
 
             foreach (var action in actions)
             {
                 Console.WriteLine(action);
             }
+            Console.WriteLine("-------------------------");
             Console.Write("Enter Action: ");
 
             int userAction = Convert.ToInt16(Console.ReadLine());
 
             switch (userAction)
             {
-                case 1:
+                case 0:
+
+
+                    Bikeparts mtp = BikeDataService.BikeInfo[0];
+
                     Console.WriteLine("-------------------------");
-                    Console.WriteLine("MountainPeak");
-                    Console.WriteLine("Price: " + BMSProcess.mtpPrice);
-                    Console.WriteLine("Frameset: " + BMSProcess.mtpFrameSet);
-                    Console.WriteLine("Groupset: " + BMSProcess.mtpGroupSet);
-                    Console.WriteLine("Wheelset: " + BMSProcess.mtpWheelset);
+                    Console.WriteLine("Brand: " + mtp.Brand);
+                    Console.WriteLine("Price: " + mtp.Price);
+                    Console.WriteLine("Frameset: " + mtp.Frameset);
+                    Console.WriteLine("Groupset: " + mtp.Groupset);
+                    Console.WriteLine("Wheelset: " + mtp.Wheelset);
+                    ShowMenu();
+                    break;
+                case 1:
 
-
-                    Console.WriteLine("Do you want to change Something?(Y/N)");
-                    string response = Console.ReadLine();
-                    response = response.ToUpper();
-
-                    if (response == "Y")
-                    {
-
-                        Console.WriteLine("-------------------------");
-                        Console.WriteLine("Select what you want to update");
-
-                        string[] actions1 = new string[] { "[1] Price", "[2] FrameSet ", "[3] GroupSet", "[4] WheelSet" };
-                        Console.WriteLine("ACTIONS");
-
-                        foreach (var action in actions1)
-                        {
-                            Console.WriteLine(action);
-                        }
-                        Console.Write("Enter Action: ");
-
-                        int userUpdateAction = Convert.ToInt16(Console.ReadLine());
-
-                        switch (userUpdateAction)
-                        {
-                            case 1:
-                                Console.Write("Enter New Price: ");
-                                int NewPrice = Convert.ToInt32(Console.ReadLine());
-
-                                BMSProcess.mtpPrice = NewPrice;
-                                Console.WriteLine("---------------");
-                                Console.WriteLine("MountainPeak");
-                                Console.WriteLine("Price: " + BMSProcess.mtpPrice);
-                                Console.WriteLine("Frameset: " + BMSProcess.mtpFrameSet);
-                                Console.WriteLine("Groupset: " + BMSProcess.mtpGroupSet);
-                                Console.WriteLine("Wheelset: " + BMSProcess.mtpWheelset);
-                                showMenu();
-                                break;
-                            case 2:
-
-                                Console.Write("Enter New Frameset: ");
-                                string NewFrameset = Console.ReadLine();
-                                BMSProcess.mtpFrameSet = NewFrameset;
-                                Console.WriteLine("-------------------------");
-                                Console.WriteLine("MountainPeak");
-                                Console.WriteLine("Price: " + BMSProcess.mtpPrice);
-                                Console.WriteLine("Frameset: " + BMSProcess.mtpFrameSet);
-                                Console.WriteLine("Groupset: " + BMSProcess.mtpGroupSet);
-                                Console.WriteLine("Wheelset: " + BMSProcess.mtpWheelset);
-                                showMenu();
-                                break;
-
-                            case 3:
-
-                                Console.Write("Enter New GroupSet: ");
-                                string NewGroupSet = Console.ReadLine();
-                                BMSProcess.mtpGroupSet = NewGroupSet;
-                                Console.WriteLine("-------------------------");
-                                Console.WriteLine("MountainPeak");
-                                Console.WriteLine("Price: " + BMSProcess.mtpPrice);
-                                Console.WriteLine("Frameset: " + BMSProcess.mtpFrameSet);
-                                Console.WriteLine("Groupset: " + BMSProcess.mtpGroupSet);
-                                Console.WriteLine("Wheelset: " + BMSProcess.mtpWheelset);
-                                showMenu();
-                                break;
-                            case 4:
-                                Console.Write("Enter New Wheelset: ");
-                                string NewWheelset = Console.ReadLine();
-                                BMSProcess.mtpWheelset = NewWheelset;
-                                Console.WriteLine("-------------------------");
-                                Console.WriteLine("MountainPeak");
-                                Console.WriteLine("Price: " + BMSProcess.mtpPrice);
-                                Console.WriteLine("Frameset: " + BMSProcess.mtpFrameSet);
-                                Console.WriteLine("Groupset: " + BMSProcess.mtpGroupSet);
-                                Console.WriteLine("Wheelset: " + BMSProcess.mtpWheelset);
-                                showMenu();
-                                break;
-                        }
-
-                    }
-                    else
-                    {
-                        Console.WriteLine("Thank You!");
-
-                        showMenu();
-                    }
+                    Bikeparts trek = BikeDataService.BikeInfo[1];
+                    Console.WriteLine("---------------");
+                    Console.WriteLine("Brand: " + trek.Brand);
+                    Console.WriteLine("Price: " + trek.Price);
+                    Console.WriteLine("Frameset: " + trek.Frameset);
+                    Console.WriteLine("Groupset: " + trek.Groupset);
+                    Console.WriteLine("Wheelset: " + trek.Wheelset);
+                    ShowMenu();
                     break;
                 case 2:
+                    Bikeparts orbea = BikeDataService.BikeInfo[2];
                     Console.WriteLine("---------------");
-                    Console.WriteLine("Trek");
-                    Console.WriteLine("Price: " + BMSProcess.trekPrice);
-                    Console.WriteLine("Frameset: " + BMSProcess.trekFrameSet);
-                    Console.WriteLine("Groupset: " + BMSProcess.trekGroupSet);
-                    Console.WriteLine("Wheelset: " + BMSProcess.trekWheelset);
-
-                    Console.WriteLine("Do you want to change Something?(Y/N)");
-                    response = Console.ReadLine();
-                    response = response.ToUpper();
-
-                    if (response == "Y")
-                    {
-                        Console.WriteLine("---------------");
-                        Console.WriteLine("Select what you want to update");
-
-                        string[] actions1 = new string[] { "[1] Price", "[2] FrameSet ", "[3] GroupSet", "[4] WheelSet" };
-                        Console.WriteLine("ACTIONS");
-
-                        foreach (var action in actions1)
-                        {
-                            Console.WriteLine(action);
-                        }
-                        Console.Write("Enter Action: ");
-
-                        int userUpdateAction = Convert.ToInt16(Console.ReadLine());
-
-                        switch (userUpdateAction)
-                        {
-                            case 1:
-                                Console.Write("Enter New Price: ");
-                                int NewPrice = Convert.ToInt32(Console.ReadLine());
-                                BMSProcess.trekPrice = NewPrice;
-                                Console.WriteLine("-------------------------");
-                                Console.WriteLine("Trek");
-                                Console.WriteLine("Price: " + BMSProcess.trekPrice);
-                                Console.WriteLine("Frameset: " + BMSProcess.trekFrameSet);
-                                Console.WriteLine("Groupset: " + BMSProcess.trekGroupSet);
-                                Console.WriteLine("Wheelset: " + BMSProcess.trekWheelset);
-                                showMenu();
-                                break;
-                            case 2:
-
-                                Console.Write("Enter New Frameset: ");
-                                string NewFrameset = Console.ReadLine();
-                                BMSProcess.trekFrameSet = NewFrameset;
-                                Console.WriteLine("-------------------------");
-                                Console.WriteLine("Trek");
-                                Console.WriteLine("Price: " + BMSProcess.trekPrice);
-                                Console.WriteLine("Frameset: " + BMSProcess.trekFrameSet);
-                                Console.WriteLine("Groupset: " + BMSProcess.trekGroupSet);
-                                Console.WriteLine("Wheelset: " + BMSProcess.trekWheelset);
-                                showMenu();
-                                break;
-
-                            case 3:
-
-                                Console.Write("Enter New GroupSet: ");
-                                string NewGroupSet = Console.ReadLine();
-                                BMSProcess.trekGroupSet = NewGroupSet;
-                                Console.WriteLine("-------------------------");
-                                Console.WriteLine("Trek");
-                                Console.WriteLine("Price: " + BMSProcess.trekPrice);
-                                Console.WriteLine("Frameset: " + BMSProcess.trekFrameSet);
-                                Console.WriteLine("Groupset: " + BMSProcess.trekGroupSet);
-                                Console.WriteLine("Wheelset: " + BMSProcess.trekWheelset);
-                                showMenu();
-                                break;
-                            case 4:
-                                Console.Write("Enter New Wheelset: ");
-                                string NewWheelset = Console.ReadLine();
-                                BMSProcess.trekWheelset = NewWheelset;
-                                Console.WriteLine("-------------------------");
-                                Console.WriteLine("Trek");
-                                Console.WriteLine("Price: " + BMSProcess.trekPrice);
-                                Console.WriteLine("Frameset: " + BMSProcess.trekFrameSet);
-                                Console.WriteLine("Groupset: " + BMSProcess.trekGroupSet);
-                                Console.WriteLine("Wheelset: " + BMSProcess.trekWheelset);
-                                showMenu();
-                                break;
-                        }
-
-                    }
-                    else
-                    {
-                        Console.WriteLine("Thank You!");
-                        showMenu();
-                    }
-
-
-
+                    Console.WriteLine("Brand: " + orbea.Brand);
+                    Console.WriteLine("Price: " + orbea.Price);
+                    Console.WriteLine("Frameset: " + orbea.Frameset);
+                    Console.WriteLine("Groupset: " + orbea.Groupset);
+                    Console.WriteLine("Wheelset: " + orbea.Wheelset);
+                    ShowMenu();
                     break;
-                case 3:
-                    Console.WriteLine("---------------");
-                    Console.WriteLine("Orbea");
-                    Console.WriteLine("Price: " + BMSProcess.orbeaPrice);
-                    Console.WriteLine("Frameset: " + BMSProcess.orbeaFrameSet);
-                    Console.WriteLine("Groupset: " + BMSProcess.orbeaGroupSet);
-                    Console.WriteLine("Wheelset: " + BMSProcess.orbeaWheelSet);
-
-
-                    Console.WriteLine("Do you want to change Something?(Y/N)");
-                    response = Console.ReadLine();
-                    response = response.ToUpper();
-
-                    if (response == "Y")
-                    {
-                        Console.WriteLine("---------------");
-                        Console.WriteLine("Select what you want to update");
-
-                        string[] actions1 = new string[] { "[1] Price", "[2] FrameSet ", "[3] GroupSet", "[4] WheelSet" };
-                        Console.WriteLine("ACTIONS");
-
-                        foreach (var action in actions1)
-                        {
-                            Console.WriteLine(action);
-                        }
-                        Console.Write("Enter Action: ");
-
-                        int userUpdateAction = Convert.ToInt16(Console.ReadLine());
-
-                        switch (userUpdateAction)
-                        {
-                            case 1:
-                                Console.WriteLine("Enter New Price: ");
-                                int NewPrice = Convert.ToInt32(Console.ReadLine());
-                                BMSProcess.orbeaPrice = NewPrice;
-                                Console.WriteLine("-------------------------");
-                                Console.WriteLine("Orbea");
-                                Console.WriteLine("Price: " + BMSProcess.orbeaPrice);
-                                Console.WriteLine("Frameset: " + BMSProcess.orbeaFrameSet);
-                                Console.WriteLine("Groupset: " + BMSProcess.orbeaGroupSet);
-                                Console.WriteLine("Wheelset: " + BMSProcess.orbeaWheelSet);
-
-
-                                break;
-                            case 2:
-
-                                Console.WriteLine("Enter New Frameset: ");
-                                string NewFrameset = Console.ReadLine();
-                                BMSProcess.orbeaFrameSet = NewFrameset;
-                                Console.WriteLine("-------------------------");
-                                Console.WriteLine("Orbea");
-                                Console.WriteLine("Price: " + BMSProcess.orbeaPrice);
-                                Console.WriteLine("Frameset: " + BMSProcess.orbeaFrameSet);
-                                Console.WriteLine("Groupset: " + BMSProcess.orbeaGroupSet);
-                                Console.WriteLine("Wheelset: " + BMSProcess.orbeaWheelSet);
-                                break;
-
-                            case 3:
-
-                                Console.WriteLine("Enter New GroupSet: ");
-                                string NewGroupSet = Console.ReadLine();
-                                BMSProcess.orbeaGroupSet = NewGroupSet;
-                                Console.WriteLine("-------------------------");
-                                Console.WriteLine("Orbea");
-                                Console.WriteLine("Price: " + BMSProcess.orbeaPrice);
-                                Console.WriteLine("Frameset: " + BMSProcess.orbeaFrameSet);
-                                Console.WriteLine("Groupset: " + BMSProcess.orbeaGroupSet);
-                                Console.WriteLine("Wheelset: " + BMSProcess.orbeaWheelSet);
-                                break;
-                            case 4:
-                                Console.WriteLine("Enter New Wheelset: ");
-                                string NewWheelset = Console.ReadLine();
-                                BMSProcess.orbeaWheelSet = NewWheelset;
-                                Console.WriteLine("-------------------------");
-                                Console.WriteLine("Orbea");
-                                Console.WriteLine("Price: " + BMSProcess.orbeaPrice);
-                                Console.WriteLine("Frameset: " + BMSProcess.orbeaFrameSet);
-                                Console.WriteLine("Groupset: " + BMSProcess.orbeaGroupSet);
-                                Console.WriteLine("Wheelset: " + BMSProcess.orbeaWheelSet);
-                                break;
-                        }
-
-                    }
-                    else
-                    {
-                        Console.WriteLine("Thank you!");
-
-                        showMenu();
-                    }
-
-
-
+                default:
+                    Console.WriteLine("Invalid Action");
+                    ShowMenu();
                     break;
             }
 
         }
         static void RoadBikes()
         {
+            BikeDataService bikeDataService = new BikeDataService();
+
+            ;
             Console.WriteLine("Select a Brand for RoadBike");
 
             string[] actions = new string[] { "[1] Giant", "[2] Cervelo ", "[3] Cannondale" };
@@ -406,6 +154,7 @@ namespace BikeStoreManagement
             {
                 Console.WriteLine(action);
             }
+            Console.WriteLine("-------------------------");
             Console.Write("Enter Action: ");
 
             int userAction = Convert.ToInt16(Console.ReadLine());
@@ -413,571 +162,305 @@ namespace BikeStoreManagement
             switch (userAction)
             {
                 case 1:
+                    Bikeparts giant = BikeDataService.BikeInfo[3];
                     Console.WriteLine("-------------------------");
-                    Console.WriteLine("Giant");
-                    Console.WriteLine("Price: " + BMSProcess.giantPrice);
-                    Console.WriteLine("Frameset: " + BMSProcess.giantFrameSet);
-                    Console.WriteLine("Groupset: " + BMSProcess.giantGroupSet);
-                    Console.WriteLine("Wheelset: " + BMSProcess.giantWheelSet);
-
-                    Console.WriteLine("Do you want to change Something?(Y/N)");
-                    string response = Console.ReadLine();
-                    response = response.ToUpper();
-
-                    if (response == "Y")
-                    {
-                        Console.WriteLine("-------------------------");
-                        Console.WriteLine("Select what you want to update");
-
-                        string[] actions1 = new string[] { "[1] Price", "[2] FrameSet ", "[3] GroupSet", "[4] WheelSet" };
-                        Console.WriteLine("ACTIONS");
-
-                        foreach (var action in actions1)
-                        {
-                            Console.WriteLine(action);
-                        }
-                        Console.Write("Enter Action: ");
-
-                        int userUpdateAction = Convert.ToInt16(Console.ReadLine());
-
-                        switch (userUpdateAction)
-                        {
-                            case 1:
-                                Console.WriteLine("Enter New Price: ");
-                                int NewPrice = Convert.ToInt32(Console.ReadLine());
-                                BMSProcess.giantPrice = NewPrice;
-                                Console.WriteLine("-------------------------");
-                                Console.WriteLine("Giant");
-                                Console.WriteLine("Price: " + BMSProcess.giantPrice);
-                                Console.WriteLine("Frameset: " + BMSProcess.giantFrameSet);
-                                Console.WriteLine("Groupset: " + BMSProcess.giantGroupSet);
-                                Console.WriteLine("Wheelset: " + BMSProcess.giantWheelSet);
-                                showMenu();
-
-                                break;
-                            case 2:
-
-                                Console.WriteLine("Enter New Frameset: ");
-                                string NewFrameset = Console.ReadLine();
-                                BMSProcess.giantFrameSet = NewFrameset;
-                                Console.WriteLine("-------------------------");
-                                Console.WriteLine("Giant");
-                                Console.WriteLine("Price: " + BMSProcess.giantPrice);
-                                Console.WriteLine("Frameset: " + BMSProcess.giantFrameSet);
-                                Console.WriteLine("Groupset: " + BMSProcess.giantGroupSet);
-                                Console.WriteLine("Wheelset: " + BMSProcess.giantWheelSet);
-                                showMenu();
-                                break;
-
-                            case 3:
-
-                                Console.WriteLine("Enter New GroupSet: ");
-                                string NewGroupSet = Console.ReadLine();
-                                BMSProcess.giantGroupSet = NewGroupSet;
-                                Console.WriteLine("-------------------------");
-                                Console.WriteLine("Giant");
-                                Console.WriteLine("Price: " + BMSProcess.giantPrice);
-                                Console.WriteLine("Frameset: " + BMSProcess.giantFrameSet);
-                                Console.WriteLine("Groupset: " + BMSProcess.giantGroupSet);
-                                Console.WriteLine("Wheelset: " + BMSProcess.giantWheelSet);
-                                showMenu();
-                                break;
-                            case 4:
-                                Console.WriteLine("Enter New Wheelset: ");
-                                string NewWheelset = Console.ReadLine();
-                                BMSProcess.giantWheelSet = NewWheelset;
-                                Console.WriteLine("-------------------------");
-                                Console.WriteLine("Giant");
-                                Console.WriteLine("Price: " + BMSProcess.giantPrice);
-                                Console.WriteLine("Frameset: " + BMSProcess.giantFrameSet);
-                                Console.WriteLine("Groupset: " + BMSProcess.giantGroupSet);
-                                Console.WriteLine("Wheelset: " + BMSProcess.giantWheelSet);
-                                showMenu();
-                                break;
-                        }
-                    }
-                    else
-                    {
-                        Console.WriteLine("Thank You!");
-                        showMenu();
-                    }
+                    Console.WriteLine("Brand: " + giant.Brand);
+                    Console.WriteLine("Price: " + giant.Price);
+                    Console.WriteLine("Frameset: " + giant.Frameset);
+                    Console.WriteLine("Groupset: " + giant.Groupset);
+                    Console.WriteLine("Wheelset: " + giant.Wheelset);
+                    ShowMenu();
                     break;
                 case 2:
+                    Bikeparts cervelo = BikeDataService.BikeInfo[4];
                     Console.WriteLine("-------------------------");
-                    Console.WriteLine("Cervelo");
-                    Console.WriteLine("Price: " + BMSProcess.cerveloPrice);
-                    Console.WriteLine("Frameset: " + BMSProcess.cerveloFrameSet);
-                    Console.WriteLine("Groupset: " + BMSProcess.cerveloGroupSet);
-                    Console.WriteLine("Wheelset: " + BMSProcess.cerveloWheelSet);
-                    Console.WriteLine("Do you want to change Something?(Y/N)");
-                    response = Console.ReadLine();
-                    response = response.ToUpper();
-
-                    if (response == "Y")
-                    {
-                        Console.WriteLine("Select what you want to update");
-
-                        string[] actions1 = new string[] { "[1] Price", "[2] FrameSet ", "[3] GroupSet", "[4] WheelSet" };
-                        Console.WriteLine("ACTIONS");
-
-                        foreach (var action in actions1)
-                        {
-                            Console.WriteLine(action);
-                        }
-                        Console.Write("Enter Action: ");
-                        int userUpdateAction = Convert.ToInt16(Console.ReadLine());
-
-                        switch (userUpdateAction)
-                        {
-                            case 1:
-
-                                Console.WriteLine("Enter New Price: ");
-                                int NewPrice = Convert.ToInt32(Console.ReadLine());
-                                BMSProcess.cerveloPrice = NewPrice;
-                                Console.WriteLine("-------------------------");
-                                Console.WriteLine("Cervelo");
-                                Console.WriteLine("Price: " + BMSProcess.cerveloPrice);
-                                Console.WriteLine("Frameset: " + BMSProcess.cerveloFrameSet);
-                                Console.WriteLine("Groupset: " + BMSProcess.cerveloGroupSet);
-                                Console.WriteLine("Wheelset: " + BMSProcess.cerveloWheelSet);
-                                showMenu();
-                                break;
-                            case 2:
-
-                                Console.WriteLine("Enter New Frameset: ");
-                                string NewFrameset = Console.ReadLine();
-                                BMSProcess.cerveloFrameSet = NewFrameset;
-                                Console.WriteLine("-------------------------");
-                                Console.WriteLine("Cervelo");
-                                Console.WriteLine("Price: " + BMSProcess.cerveloPrice);
-                                Console.WriteLine("Frameset: " + BMSProcess.cerveloFrameSet);
-                                Console.WriteLine("Groupset: " + BMSProcess.cerveloGroupSet);
-                                Console.WriteLine("Wheelset: " + BMSProcess.cerveloWheelSet);
-                                showMenu();
-                                break;
-
-                            case 3:
-
-                                Console.WriteLine("Enter New GroupSet: ");
-                                string NewGroupSet = Console.ReadLine();
-                                BMSProcess.cerveloGroupSet = NewGroupSet;
-                                Console.WriteLine("-------------------------");
-                                Console.WriteLine("Cervelo");
-                                Console.WriteLine("Price: " + BMSProcess.cerveloPrice);
-                                Console.WriteLine("Frameset: " + BMSProcess.cerveloFrameSet);
-                                Console.WriteLine("Groupset: " + BMSProcess.cerveloGroupSet);
-                                Console.WriteLine("Wheelset: " + BMSProcess.cerveloWheelSet);
-                                showMenu();
-                                break;
-                            case 4:
-                                Console.WriteLine("Enter New Wheelset: ");
-                                string NewWheelset = Console.ReadLine();
-                                BMSProcess.cerveloWheelSet = NewWheelset;
-                                Console.WriteLine("-------------------------");
-                                Console.WriteLine("Cervelo");
-                                Console.WriteLine("Price: " + BMSProcess.cerveloPrice);
-                                Console.WriteLine("Frameset: " + BMSProcess.cerveloFrameSet);
-                                Console.WriteLine("Groupset: " + BMSProcess.cerveloGroupSet);
-                                Console.WriteLine("Wheelset: " + BMSProcess.cerveloWheelSet);
-                                showMenu();
-                                break;
-                        }
-
-                    }
-                    else
-                    {
-                        Console.WriteLine("Thank You!");
-                        showMenu();
-                    }
+                    Console.WriteLine("Brand: " + cervelo.Brand);
+                    Console.WriteLine("Price: " + cervelo.Price);
+                    Console.WriteLine("Frameset: " + cervelo.Frameset);
+                    Console.WriteLine("Groupset: " + cervelo.Groupset);
+                    Console.WriteLine("Wheelset: " + cervelo.Wheelset);
+                    ShowMenu();
                     break;
                 case 3:
+                    Bikeparts cannondale = BikeDataService.BikeInfo[5];
                     Console.WriteLine("-------------------------");
-                    Console.WriteLine("Cannondale");
-                    Console.WriteLine("Price: " + BMSProcess.cannondalePrice);
-                    Console.WriteLine("Frameset: " + BMSProcess.cannondaleFrameSet);
-                    Console.WriteLine("Groupset: " + BMSProcess.cannondaleGroupSet);
-                    Console.WriteLine("Wheelset: " + BMSProcess.cannondaleWheelSet);
-                    Console.WriteLine("Do you want to change Something?(Y/N)");
-                    response = Console.ReadLine();
-                    response = response.ToUpper();
-                    if (response == "Y")
-                    {
-                        Console.WriteLine("Select what you want to update");
-
-                        string[] actions1 = new string[] { "[1] Price", "[2] FrameSet ", "[3] GroupSet", "[4] WheelSet" };
-                        Console.WriteLine("ACTIONS");
-
-                        foreach (var action in actions1)
-                        {
-                            Console.WriteLine(action);
-                        }
-                        Console.Write("Enter Action: ");
-
-                        int userUpdateAction = Convert.ToInt16(Console.ReadLine());
-
-                        switch (userUpdateAction)
-                        {
-                            case 1:
-
-                                Console.WriteLine("Enter New Price: ");
-                                int NewPrice = Convert.ToInt32(Console.ReadLine());
-                                BMSProcess.cannondalePrice = NewPrice;
-                                Console.WriteLine("-------------------------");
-                                Console.WriteLine("Cannondale");
-                                Console.WriteLine("Price: " + BMSProcess.cannondalePrice);
-                                Console.WriteLine("Frameset: " + BMSProcess.cannondaleFrameSet);
-                                Console.WriteLine("Groupset: " + BMSProcess.cannondaleGroupSet);
-                                Console.WriteLine("Wheelset: " + BMSProcess.cannondaleWheelSet);
-                                showMenu();
-
-                                break;
-                            case 2:
-
-                                Console.WriteLine("Enter New Frameset: ");
-                                string NewFrameset = Console.ReadLine();
-                                BMSProcess.cannondaleFrameSet = NewFrameset;
-                                Console.WriteLine("-------------------------");
-                                Console.WriteLine("Cannondale");
-                                Console.WriteLine("Price: " + BMSProcess.cannondalePrice);
-                                Console.WriteLine("Frameset: " + BMSProcess.cannondaleFrameSet);
-                                Console.WriteLine("Groupset: " + BMSProcess.cannondaleGroupSet);
-                                Console.WriteLine("Wheelset: " + BMSProcess.cannondaleWheelSet);
-                                showMenu();
-                                break;
-
-                            case 3:
-
-                                Console.WriteLine("Enter New GroupSet: ");
-                                string NewGroupSet = Console.ReadLine();
-                                BMSProcess.cannondaleGroupSet = NewGroupSet;
-                                Console.WriteLine("-------------------------");
-                                Console.WriteLine("Cannondale");
-                                Console.WriteLine("Price: " + BMSProcess.cannondalePrice);
-                                Console.WriteLine("Frameset: " + BMSProcess.cannondaleFrameSet);
-                                Console.WriteLine("Groupset: " + BMSProcess.cannondaleGroupSet);
-                                Console.WriteLine("Wheelset: " + BMSProcess.cannondaleWheelSet);
-                                showMenu();
-                                break;
-                            case 4:
-                                Console.WriteLine("Enter New Wheelset: ");
-                                string NewWheelset = Console.ReadLine();
-                                BMSProcess.cannondaleWheelSet = NewWheelset;
-                                Console.WriteLine("-------------------------");
-                                Console.WriteLine("Cannondale");
-                                Console.WriteLine("Price: " + BMSProcess.cannondalePrice);
-                                Console.WriteLine("Frameset: " + BMSProcess.cannondaleFrameSet);
-                                Console.WriteLine("Groupset: " + BMSProcess.cannondaleGroupSet);
-                                Console.WriteLine("Wheelset: " + BMSProcess.cannondaleWheelSet);
-                                showMenu();
-                                break;
-                        }
-                    }
-                    else
-                    {
-                        Console.WriteLine("Thank You!");
-                        showMenu();
-                    }
+                    Console.WriteLine("Brand: " + cannondale.Brand);
+                    Console.WriteLine("Price: " + cannondale.Price);
+                    Console.WriteLine("Frameset: " + cannondale.Frameset);
+                    Console.WriteLine("Groupset: " + cannondale.Groupset);
+                    Console.WriteLine("Wheelset: " + cannondale.Wheelset);
+                    ShowMenu();
+                    break;
+                default:
+                    Console.WriteLine("Invalid Input");
                     break;
             }
         }
 
         static void DisplayallAction()
         {
-            Console.WriteLine("MountainPeak");
-            Console.WriteLine("Price: " + BMSProcess.mtpPrice);
-            Console.WriteLine("Frameset: " + BMSProcess.mtpFrameSet);
-            Console.WriteLine("Groupset: " + BMSProcess.mtpGroupSet);
-            Console.WriteLine("Wheelset: " + BMSProcess.mtpWheelset);
-            Console.WriteLine("\n");
-            Console.WriteLine("Trek");
-            Console.WriteLine("Price: " + BMSProcess.trekPrice);
-            Console.WriteLine("Frameset: " + BMSProcess.trekFrameSet);
-            Console.WriteLine("Groupset: " + BMSProcess.trekGroupSet);
-            Console.WriteLine("Wheelset: " + BMSProcess.trekWheelset);
-            Console.WriteLine("\n");
-            Console.WriteLine("Orbea");
-            Console.WriteLine("Price: " + BMSProcess.orbeaPrice);
-            Console.WriteLine("Frameset: " + BMSProcess.orbeaFrameSet);
-            Console.WriteLine("Groupset: " + BMSProcess.orbeaGroupSet);
-            Console.WriteLine("Wheelset: " + BMSProcess.orbeaWheelSet);
-            Console.WriteLine("\n");
-            Console.WriteLine("Giant");
-            Console.WriteLine("Price: " + BMSProcess.giantPrice);
-            Console.WriteLine("Frameset: " + BMSProcess.giantFrameSet);
-            Console.WriteLine("Groupset: " + BMSProcess.giantGroupSet);
-            Console.WriteLine("Wheelset: " + BMSProcess.giantWheelSet);
-            Console.WriteLine("\n");
-            Console.WriteLine("Cervelo");
-            Console.WriteLine("Price: " + BMSProcess.cerveloPrice);
-            Console.WriteLine("Frameset: " + BMSProcess.cerveloFrameSet);
-            Console.WriteLine("Groupset: " + BMSProcess.cerveloGroupSet);
-            Console.WriteLine("Wheelset: " + BMSProcess.cerveloWheelSet);
-            Console.WriteLine("\n");
-            Console.WriteLine("Cannondale");
-            Console.WriteLine("Price: " + BMSProcess.cannondalePrice);
-            Console.WriteLine("Frameset: " + BMSProcess.cannondaleFrameSet);
-            Console.WriteLine("Groupset: " + BMSProcess.cannondaleGroupSet);
-            Console.WriteLine("Wheelset: " + BMSProcess.cannondaleWheelSet);
-            Console.WriteLine("\n");
-            Console.WriteLine(BMSProcess.addBikeBrand);
-            Console.WriteLine("Price: " + BMSProcess.addBikePrice);
-            Console.WriteLine("Frameset: " + BMSProcess.addBikeFrameSet);
-            Console.WriteLine("Groupset: " + BMSProcess.addBikeGroupSet);
-            Console.WriteLine("Wheelset: " + BMSProcess.addBikeWheelSet);
+            BikeDataService bikeDataService = new BikeDataService();
 
-
-
-
-            Console.WriteLine("Do you want to Delete Something?(Y/N)");
-            string response = Console.ReadLine();
-            response = response.ToUpper();
-
-            if (response == "Y")
+            foreach (Bikeparts bike in BikeDataService.BikeInfo)
             {
-                string[] actions = new string[] { "[1] MountainPeak", "[2] Trek", "[3] Orbea", "[4] Giant", "[5] Cervelo", "[6] Cannondale" };
-                Console.WriteLine("ACTIONS");
-
-                foreach (var action in actions)
-                {
-                    Console.WriteLine(action);
-                }
-                Console.Write("Enter Action: ");
-
-
-                int userAction = Convert.ToInt16(Console.ReadLine());
-
-                switch (userAction)
-                {
-                    case 1:
-                        Console.WriteLine("-------------------------");
-                        Console.WriteLine("Trek");
-                        Console.WriteLine("Price: " + BMSProcess.trekPrice);
-                        Console.WriteLine("Frameset: " + BMSProcess.trekFrameSet);
-                        Console.WriteLine("Groupset: " + BMSProcess.trekGroupSet);
-                        Console.WriteLine("Wheelset: " + BMSProcess.trekWheelset);
-                        Console.WriteLine("\n");
-                        Console.WriteLine("Orbea");
-                        Console.WriteLine("Price: " + BMSProcess.orbeaPrice);
-                        Console.WriteLine("Frameset: " + BMSProcess.orbeaFrameSet);
-                        Console.WriteLine("Groupset: " + BMSProcess.orbeaGroupSet);
-                        Console.WriteLine("Wheelset: " + BMSProcess.orbeaWheelSet);
-                        Console.WriteLine("\n");
-                        Console.WriteLine("Giant");
-                        Console.WriteLine("Price: " + BMSProcess.giantPrice);
-                        Console.WriteLine("Frameset: " + BMSProcess.giantFrameSet);
-                        Console.WriteLine("Groupset: " + BMSProcess.giantGroupSet);
-                        Console.WriteLine("Wheelset: " + BMSProcess.giantWheelSet);
-                        Console.WriteLine("\n");
-                        Console.WriteLine("Cervelo");
-                        Console.WriteLine("Price: " + BMSProcess.cerveloPrice);
-                        Console.WriteLine("Frameset: " + BMSProcess.cerveloFrameSet);
-                        Console.WriteLine("Groupset: " + BMSProcess.cerveloGroupSet);
-                        Console.WriteLine("Wheelset: " + BMSProcess.cerveloWheelSet);
-                        Console.WriteLine("\n");
-                        Console.WriteLine("Cannondale");
-                        Console.WriteLine("Price: " + BMSProcess.cannondalePrice);
-                        Console.WriteLine("Frameset: " + BMSProcess.cannondaleFrameSet);
-                        Console.WriteLine("Groupset: " + BMSProcess.cannondaleGroupSet);
-                        Console.WriteLine("Wheelset: " + BMSProcess.cannondaleWheelSet);
-                        showMenu();
-
-
-                        break;
-                    case 2:
-                        Console.WriteLine("-------------------------");
-                        Console.WriteLine("MountainPeak");
-                        Console.WriteLine("Price: " + BMSProcess.mtpPrice);
-                        Console.WriteLine("Frameset: " + BMSProcess.mtpFrameSet);
-                        Console.WriteLine("Groupset: " + BMSProcess.mtpGroupSet);
-                        Console.WriteLine("Wheelset: " + BMSProcess.mtpWheelset);
-                        Console.WriteLine("\n");
-                        Console.WriteLine("Orbea");
-                        Console.WriteLine("Price: " + BMSProcess.orbeaPrice);
-                        Console.WriteLine("Frameset: " + BMSProcess.orbeaFrameSet);
-                        Console.WriteLine("Groupset: " + BMSProcess.orbeaGroupSet);
-                        Console.WriteLine("Wheelset: " + BMSProcess.orbeaWheelSet);
-                        Console.WriteLine("\n");
-                        Console.WriteLine("Giant");
-                        Console.WriteLine("Price: " + BMSProcess.giantPrice);
-                        Console.WriteLine("Frameset: " + BMSProcess.giantFrameSet);
-                        Console.WriteLine("Groupset: " + BMSProcess.giantGroupSet);
-                        Console.WriteLine("Wheelset: " + BMSProcess.giantWheelSet);
-                        Console.WriteLine("\n");
-                        Console.WriteLine("Cervelo");
-                        Console.WriteLine("Price: " + BMSProcess.cerveloPrice);
-                        Console.WriteLine("Frameset: " + BMSProcess.cerveloFrameSet);
-                        Console.WriteLine("Groupset: " + BMSProcess.cerveloGroupSet);
-                        Console.WriteLine("Wheelset: " + BMSProcess.cerveloWheelSet);
-                        Console.WriteLine("\n");
-                        Console.WriteLine("Cannondale");
-                        Console.WriteLine("Price: " + BMSProcess.cannondalePrice);
-                        Console.WriteLine("Frameset: " + BMSProcess.cannondaleFrameSet);
-                        Console.WriteLine("Groupset: " + BMSProcess.cannondaleGroupSet);
-                        Console.WriteLine("Wheelset: " + BMSProcess.cannondaleWheelSet);
-                        showMenu();
-
-                        break;
-                    case 3:
-                        Console.WriteLine("-------------------------");
-                        Console.WriteLine("MountainPeak");
-                        Console.WriteLine("Price: " + BMSProcess.mtpPrice);
-                        Console.WriteLine("Frameset: " + BMSProcess.mtpFrameSet);
-                        Console.WriteLine("Groupset: " + BMSProcess.mtpGroupSet);
-                        Console.WriteLine("Wheelset: " + BMSProcess.mtpWheelset);
-                        Console.WriteLine("\n");
-                        Console.WriteLine("Trek");
-                        Console.WriteLine("Price: " + BMSProcess.trekPrice);
-                        Console.WriteLine("Frameset: " + BMSProcess.trekFrameSet);
-                        Console.WriteLine("Groupset: " + BMSProcess.trekGroupSet);
-                        Console.WriteLine("Wheelset: " + BMSProcess.trekWheelset);
-                        Console.WriteLine("\n");
-                        Console.WriteLine("Giant");
-                        Console.WriteLine("Price: " + BMSProcess.giantPrice);
-                        Console.WriteLine("Frameset: " + BMSProcess.giantFrameSet);
-                        Console.WriteLine("Groupset: " + BMSProcess.giantGroupSet);
-                        Console.WriteLine("Wheelset: " + BMSProcess.giantWheelSet);
-                        Console.WriteLine("\n");
-                        Console.WriteLine("Cervelo");
-                        Console.WriteLine("Price: " + BMSProcess.cerveloPrice);
-                        Console.WriteLine("Frameset: " + BMSProcess.cerveloFrameSet);
-                        Console.WriteLine("Groupset: " + BMSProcess.cerveloGroupSet);
-                        Console.WriteLine("Wheelset: " + BMSProcess.cerveloWheelSet);
-                        Console.WriteLine("\n");
-                        Console.WriteLine("Cannondale");
-                        Console.WriteLine("Price: " + BMSProcess.cannondalePrice);
-                        Console.WriteLine("Frameset: " + BMSProcess.cannondaleFrameSet);
-                        Console.WriteLine("Groupset: " + BMSProcess.cannondaleGroupSet);
-                        Console.WriteLine("Wheelset: " + BMSProcess.cannondaleWheelSet);
-                        showMenu();
-
-
-                        break;
-                    case 4:
-                        Console.WriteLine("-------------------------");
-                        Console.WriteLine("MountainPeak");
-                        Console.WriteLine("Price: " + BMSProcess.mtpPrice);
-                        Console.WriteLine("Frameset: " + BMSProcess.mtpFrameSet);
-                        Console.WriteLine("Groupset: " + BMSProcess.mtpGroupSet);
-                        Console.WriteLine("Wheelset: " + BMSProcess.mtpWheelset);
-                        Console.WriteLine("\n");
-                        Console.WriteLine("Trek");
-                        Console.WriteLine("Price: " + BMSProcess.trekPrice);
-                        Console.WriteLine("Frameset: " + BMSProcess.trekFrameSet);
-                        Console.WriteLine("Groupset: " + BMSProcess.trekGroupSet);
-                        Console.WriteLine("Wheelset: " + BMSProcess.trekWheelset);
-                        Console.WriteLine("\n");
-                        Console.WriteLine("Orbea");
-                        Console.WriteLine("Price: " + BMSProcess.orbeaPrice);
-                        Console.WriteLine("Frameset: " + BMSProcess.orbeaFrameSet);
-                        Console.WriteLine("Groupset: " + BMSProcess.orbeaGroupSet);
-                        Console.WriteLine("Wheelset: " + BMSProcess.orbeaWheelSet);
-                        Console.WriteLine("\n");
-                        Console.WriteLine("Cervelo");
-                        Console.WriteLine("Price: " + BMSProcess.cerveloPrice);
-                        Console.WriteLine("Frameset: " + BMSProcess.cerveloFrameSet);
-                        Console.WriteLine("Groupset: " + BMSProcess.cerveloGroupSet);
-                        Console.WriteLine("Wheelset: " + BMSProcess.cerveloWheelSet);
-                        Console.WriteLine("\n");
-                        Console.WriteLine("Cannondale");
-                        Console.WriteLine("Price: " + BMSProcess.cannondalePrice);
-                        Console.WriteLine("Frameset: " + BMSProcess.cannondaleFrameSet);
-                        Console.WriteLine("Groupset: " + BMSProcess.cannondaleGroupSet);
-                        Console.WriteLine("Wheelset: " + BMSProcess.cannondaleWheelSet);
-                        showMenu();
-
-                        break;
-                    case 5:
-                        Console.WriteLine("-------------------------");
-                        Console.WriteLine("MountainPeak");
-                        Console.WriteLine("Price: " + BMSProcess.mtpPrice);
-                        Console.WriteLine("Frameset: " + BMSProcess.mtpFrameSet);
-                        Console.WriteLine("Groupset: " + BMSProcess.mtpGroupSet);
-                        Console.WriteLine("Wheelset: " + BMSProcess.mtpWheelset);
-                        Console.WriteLine("\n");
-                        Console.WriteLine("Trek");
-                        Console.WriteLine("Price: " + BMSProcess.trekPrice);
-                        Console.WriteLine("Frameset: " + BMSProcess.trekFrameSet);
-                        Console.WriteLine("Groupset: " + BMSProcess.trekGroupSet);
-                        Console.WriteLine("Wheelset: " + BMSProcess.trekWheelset);
-                        Console.WriteLine("\n");
-                        Console.WriteLine("Orbea");
-                        Console.WriteLine("Price: " + BMSProcess.orbeaPrice);
-                        Console.WriteLine("Frameset: " + BMSProcess.orbeaFrameSet);
-                        Console.WriteLine("Groupset: " + BMSProcess.orbeaGroupSet);
-                        Console.WriteLine("Wheelset: " + BMSProcess.orbeaWheelSet);
-                        Console.WriteLine("\n");
-                        Console.WriteLine("Giant");
-                        Console.WriteLine("Price: " + BMSProcess.giantPrice);
-                        Console.WriteLine("Frameset: " + BMSProcess.giantFrameSet);
-                        Console.WriteLine("Groupset: " + BMSProcess.giantGroupSet);
-                        Console.WriteLine("Wheelset: " + BMSProcess.giantWheelSet);
-                        Console.WriteLine("\n");
-                        Console.WriteLine("Cannondale");
-                        Console.WriteLine("Price: " + BMSProcess.cannondalePrice);
-                        Console.WriteLine("Frameset: " + BMSProcess.cannondaleFrameSet);
-                        Console.WriteLine("Groupset: " + BMSProcess.cannondaleGroupSet);
-                        Console.WriteLine("Wheelset: " + BMSProcess.cannondaleWheelSet);
-                        showMenu();
-                        break;
-                    case 6:
-                        Console.WriteLine("-------------------------");
-                        Console.WriteLine("MountainPeak");
-                        Console.WriteLine("Price: " + BMSProcess.mtpPrice);
-                        Console.WriteLine("Frameset: " + BMSProcess.mtpFrameSet);
-                        Console.WriteLine("Groupset: " + BMSProcess.mtpGroupSet);
-                        Console.WriteLine("Wheelset: " + BMSProcess.mtpWheelset);
-                        Console.WriteLine("\n");
-                        Console.WriteLine("Trek");
-                        Console.WriteLine("Price: " + BMSProcess.trekPrice);
-                        Console.WriteLine("Frameset: " + BMSProcess.trekFrameSet);
-                        Console.WriteLine("Groupset: " + BMSProcess.trekGroupSet);
-                        Console.WriteLine("Wheelset: " + BMSProcess.trekWheelset);
-                        Console.WriteLine("\n");
-                        Console.WriteLine("Orbea");
-                        Console.WriteLine("Price: " + BMSProcess.orbeaPrice);
-                        Console.WriteLine("Frameset: " + BMSProcess.orbeaFrameSet);
-                        Console.WriteLine("Groupset: " + BMSProcess.orbeaGroupSet);
-                        Console.WriteLine("Wheelset: " + BMSProcess.orbeaWheelSet);
-                        Console.WriteLine("\n");
-                        Console.WriteLine("Giant");
-                        Console.WriteLine("Price: " + BMSProcess.giantPrice);
-                        Console.WriteLine("Frameset: " + BMSProcess.giantFrameSet);
-                        Console.WriteLine("Groupset: " + BMSProcess.giantGroupSet);
-                        Console.WriteLine("Wheelset: " + BMSProcess.giantWheelSet);
-                        Console.WriteLine("\n");
-                        Console.WriteLine("Cervelo");
-                        Console.WriteLine("Price: " + BMSProcess.cerveloPrice);
-                        Console.WriteLine("Frameset: " + BMSProcess.cerveloFrameSet);
-                        Console.WriteLine("Groupset: " + BMSProcess.cerveloGroupSet);
-                        Console.WriteLine("Wheelset: " + BMSProcess.cerveloWheelSet);
-                        showMenu();
-
-                        break;
-                }
+                Console.WriteLine("Brand: " + bike.Brand);
+                Console.WriteLine("Price:" + bike.Price);
+                Console.WriteLine("FrameSet:" + bike.Frameset);
+                Console.WriteLine("GroupSet:" + bike.Groupset);
+                Console.WriteLine("WheelSet: " + bike.Wheelset);
+                Console.WriteLine("\n");
             }
-            else
-            {
-                Console.WriteLine("Thank you!");
-                showMenu();
-            }
+            ShowMenu();
+
         }
 
-        static void showMenu()
+        static void ShowMenu()
         {
-            Console.WriteLine("Do you want to go back to menu?(Y/N)");
+            Console.WriteLine("-------------------------");
+            Console.Write("Do you want to go back to menu?(Y/N): ");
             string response = Console.ReadLine();
             response = response.ToUpper();
 
             if (response == "Y")
             {
-                Console.WriteLine("-------------------------");
-                ShowBikeAction();
+                Menu();
             }
             else
             {
                 Console.WriteLine("Thank you!");
             }
         }
+        static void Update()
+        {
+            BikeDataService bikeDataService = new BikeDataService();
+            Console.WriteLine("-------------------------");
+            Console.WriteLine("Select a Brand you would like to Update");
+            int count = -1;
+            foreach (Bikeparts bike in BikeDataService.BikeInfo)
+            {
+                count++;
+                Console.WriteLine("[" + count + "]" + bike.Brand);
+            }
+            Console.WriteLine("-------------------------");
+            Console.Write("Enter Action: ");
+
+            int userAction = Convert.ToInt16(Console.ReadLine());
+
+            Bikeparts selectedBrand = BikeDataService.BikeInfo[userAction];
+
+            Console.WriteLine("Select What Bike part you would like to update?");
+
+
+            string[] actions = new string[] { "[1] Price", "[2] FrameSet", "[3] GroupSet", "[4] WheelSet" };
+            Console.WriteLine("ACTIONS");
+
+            foreach (var action in actions)
+            {
+                Console.WriteLine(action);
+            }
+            Console.Write("Enter Action: ");
+
+            int userActionBikepart = Convert.ToInt16(Console.ReadLine());
+
+            switch (userActionBikepart)
+            {
+                case 1:
+                    Console.WriteLine("-------------------------");
+                    Console.Write("Enter new price: ");
+                    selectedBrand.Price = Convert.ToInt32(Console.ReadLine());
+                    Console.WriteLine("Update complete!");
+                    ShowMenu();
+
+                    break;
+                case 2:
+                    Console.WriteLine("-------------------------");
+                    Console.Write("Enter new FrameSet: ");
+                    selectedBrand.Frameset = Console.ReadLine();
+                    Console.WriteLine("Update complete!");
+                    ShowMenu();
+                    break;
+                case 3:
+                    Console.WriteLine("-------------------------");
+                    Console.Write("Enter new GroupSet: ");
+                    selectedBrand.Groupset = Console.ReadLine();
+                    Console.WriteLine("Update complete!");
+                    ShowMenu();
+                    break;
+                case 4:
+                    Console.WriteLine("-------------------------");
+                    Console.Write("Enter new WheelSet: ");
+                    selectedBrand.Wheelset = Console.ReadLine();
+                    Console.WriteLine("Update complete!");
+                    ShowMenu();
+                    break;
+            }
+        }
+        static void AddBike()
+        {
+            BikeDataService bikeDataService = new BikeDataService();
+            Bikeparts addNewBike = BikeDataService.BikeInfo[6];
+
+
+            Console.Write("Enter Bike Brand: ");
+            addNewBike.Brand = Console.ReadLine();
+
+            Console.Write("Enter price: ");
+            addNewBike.Price = Convert.ToInt32(Console.ReadLine());
+
+            Console.Write("Enter Frameset: ");
+            addNewBike.Frameset = Console.ReadLine();
+
+            Console.Write("Enter Groupset: ");
+            addNewBike.Groupset = Console.ReadLine();
+
+            Console.Write("Enter Wheelset: ");
+            addNewBike.Wheelset = Console.ReadLine();
+
+            Console.WriteLine("-------------------------");
+            Console.WriteLine("Brand: " + addNewBike.Brand);
+            Console.WriteLine("Price: " + addNewBike.Price);
+            Console.WriteLine("Frameset: " + addNewBike.Frameset);
+            Console.WriteLine("Groupset: " + addNewBike.Groupset);
+            Console.WriteLine("Wheelset: " + addNewBike.Wheelset);
+            ShowMenu();
+        }
+
+        static void Delete()
+        {
+            Console.WriteLine("Select a Brand you would like to Delete");
+           
+            int count = -1;
+            foreach (Bikeparts bike in BikeDataService.BikeInfo)
+            {
+                count++;
+                Console.WriteLine("[" + count + "]" + bike.Brand);
+            }
+
+            Console.WriteLine("-------------------------");
+            Console.Write("Enter Action: ");
+            int userAction = Convert.ToInt16(Console.ReadLine());
+
+            switch (userAction)
+            {
+                case 0:
+
+                    Console.WriteLine("-------------------------");
+                    BikeDataService.BikeInfo.RemoveAt(0);
+
+                    foreach (Bikeparts bike in BikeDataService.BikeInfo)
+                    {
+                        Console.WriteLine("Brand: " + bike.Brand);
+                        Console.WriteLine("Price:" + bike.Price);
+                        Console.WriteLine("FrameSet:" + bike.Frameset);
+                        Console.WriteLine("GroupSet:" + bike.Groupset);
+                        Console.WriteLine("WheelSet: " + bike.Wheelset);
+                        Console.WriteLine("\n");
+                    }
+                    ShowMenu();
+
+
+                    break;
+                case 1:
+                    Console.WriteLine("-------------------------");
+                    BikeDataService.BikeInfo.RemoveAt(1);
+
+                    foreach (Bikeparts bike in BikeDataService.BikeInfo)
+                    {
+                        Console.WriteLine("Brand: " + bike.Brand);
+                        Console.WriteLine("Price:" + bike.Price);
+                        Console.WriteLine("FrameSet:" + bike.Frameset);
+                        Console.WriteLine("GroupSet:" + bike.Groupset);
+                        Console.WriteLine("WheelSet: " + bike.Wheelset);
+                        Console.WriteLine("\n");
+                    }
+                    ShowMenu();
+
+                    break;
+                case 2:
+                    Console.WriteLine("-------------------------");
+                    BikeDataService.BikeInfo.RemoveAt(2);
+
+                    foreach (Bikeparts bike in BikeDataService.BikeInfo)
+                    {
+                        Console.WriteLine("Brand: " + bike.Brand);
+                        Console.WriteLine("Price:" + bike.Price);
+                        Console.WriteLine("FrameSet:" + bike.Frameset);
+                        Console.WriteLine("GroupSet:" + bike.Groupset);
+                        Console.WriteLine("WheelSet: " + bike.Wheelset);
+                        Console.WriteLine("\n");
+                    }
+                    ShowMenu();
+
+
+                    break;
+                case 3:
+                    Console.WriteLine("-------------------------");
+                    BikeDataService.BikeInfo.RemoveAt(3);
+
+                    foreach (Bikeparts bike in BikeDataService.BikeInfo)
+                    {
+                        Console.WriteLine("Brand: " + bike.Brand);
+                        Console.WriteLine("Price:" + bike.Price);
+                        Console.WriteLine("FrameSet:" + bike.Frameset);
+                        Console.WriteLine("GroupSet:" + bike.Groupset);
+                        Console.WriteLine("WheelSet: " + bike.Wheelset);
+                        Console.WriteLine("\n");
+                    }
+                    ShowMenu();
+
+                    break;
+                case 4:
+                    Console.WriteLine("-------------------------");
+                    BikeDataService.BikeInfo.RemoveAt(4);
+
+                    foreach (Bikeparts bike in BikeDataService.BikeInfo)
+                    {
+                        Console.WriteLine("Brand: " + bike.Brand);
+                        Console.WriteLine("Price:" + bike.Price);
+                        Console.WriteLine("FrameSet:" + bike.Frameset);
+                        Console.WriteLine("GroupSet:" + bike.Groupset);
+                        Console.WriteLine("WheelSet: " + bike.Wheelset);
+                        Console.WriteLine("\n");
+                    }
+                    ShowMenu();
+                    break;
+                case 5:
+                    Console.WriteLine("-------------------------");
+                    BikeDataService.BikeInfo.RemoveAt(5);
+
+                    foreach (Bikeparts bike in BikeDataService.BikeInfo)
+                    {
+                        Console.WriteLine("Brand: " + bike.Brand);
+                        Console.WriteLine("Price:" + bike.Price);
+                        Console.WriteLine("FrameSet:" + bike.Frameset);
+                        Console.WriteLine("GroupSet:" + bike.Groupset);
+                        Console.WriteLine("WheelSet: " + bike.Wheelset);
+                        Console.WriteLine("\n");
+                    }
+                    ShowMenu();
+                    break;
+                case 6:
+                    Console.WriteLine("-------------------------");
+                    BikeDataService.BikeInfo.RemoveAt(6);
+
+                    foreach (Bikeparts bike in BikeDataService.BikeInfo)
+                    {
+                        Console.WriteLine("Brand: " + bike.Brand);
+                        Console.WriteLine("Price:" + bike.Price);
+                        Console.WriteLine("FrameSet:" + bike.Frameset);
+                        Console.WriteLine("GroupSet:" + bike.Groupset);
+                        Console.WriteLine("WheelSet: " + bike.Wheelset);
+                        Console.WriteLine("\n");
+                    }
+                    ShowMenu();
+                    break;
+                default:
+                    Console.WriteLine("Invalid Action");
+                    break;
+            }
+        }
+    
+        
     }
 
 }
