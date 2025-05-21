@@ -6,7 +6,7 @@ namespace BikeStoreManagement
 {
     internal class Program
     {
-
+        static BikeDataService bikeDataService = new BikeDataService();
         static void Main(string[] args)
         {
 
@@ -73,9 +73,10 @@ namespace BikeStoreManagement
         }
         static void DisplayBikes()
         {
-            BikeDataService bikeDataService = new BikeDataService();
+            List<Bikeparts> bikes = bikeDataService.GetAllBikes();
+            
 
-            foreach (Bikeparts bike in BikeDataService.BikeInfo)
+            foreach (Bikeparts bike in bikes)
             {
                 Console.WriteLine(bike.BikeType);
                 Console.WriteLine("Brand: " + bike.Brand);
@@ -84,6 +85,7 @@ namespace BikeStoreManagement
                 Console.WriteLine("GroupSet:" + bike.Groupset);
                 Console.WriteLine("WheelSet: " + bike.Wheelset);
                 Console.WriteLine("\n");
+
             }
             ShowMenu();
 
@@ -107,11 +109,11 @@ namespace BikeStoreManagement
         }
         static void Update()
         {
-            BikeDataService bikeDataService = new BikeDataService();
+            List<Bikeparts> bikes = bikeDataService.GetAllBikes();
             Console.WriteLine("-------------------------");
             Console.WriteLine("Select a Brand you would like to Update");
             int count = -1;
-            foreach (Bikeparts bike in BikeDataService.BikeInfo)
+            foreach (Bikeparts bike in bikes)
             {
                 count++;
                 Console.WriteLine("[" + count + "]" + bike.Brand);
@@ -121,7 +123,7 @@ namespace BikeStoreManagement
 
             int userAction = Convert.ToInt16(Console.ReadLine());
 
-            Bikeparts selectedBrand = BikeDataService.BikeInfo[userAction];
+            Bikeparts selectedBrand = bikes[userAction];
 
             Console.WriteLine("Select What Bike part you would like to update?");
 
@@ -173,8 +175,8 @@ namespace BikeStoreManagement
         }
         static void AddBike()
         {
-            BikeDataService bikeDataService = new BikeDataService();
-            Bikeparts addNewBike = BikeDataService.BikeInfo[6];
+            List<Bikeparts> bikes = bikeDataService.GetAllBikes();
+            Bikeparts addNewBike = bikes[6];
 
             Console.Write("Enter Bike type: ");
             addNewBike.BikeType = Console.ReadLine();
@@ -205,10 +207,11 @@ namespace BikeStoreManagement
 
         static void Delete()
         {
+            List<Bikeparts> bikes = bikeDataService.GetAllBikes();
             Console.WriteLine("Select a Brand you would like to Delete");
            
             int count = -1;
-            foreach (Bikeparts bike in BikeDataService.BikeInfo)
+            foreach (Bikeparts bike in bikes)
             {
                 count++;
                 Console.WriteLine("[" + count + "]" + bike.Brand);
@@ -223,9 +226,9 @@ namespace BikeStoreManagement
                 case 0:
 
                     Console.WriteLine("-------------------------");
-                    BikeDataService.BikeInfo.RemoveAt(0);
+                    bikes.RemoveAt(0);
 
-                    foreach (Bikeparts bike in BikeDataService.BikeInfo)
+                    foreach (Bikeparts bike in bikes)
                     {
                         Console.WriteLine(bike.BikeType);
                         Console.WriteLine("Brand: " + bike.Brand);
@@ -241,9 +244,9 @@ namespace BikeStoreManagement
                     break;
                 case 1:
                     Console.WriteLine("-------------------------");
-                    BikeDataService.BikeInfo.RemoveAt(1);
+                    bikes.RemoveAt(1);
 
-                    foreach (Bikeparts bike in BikeDataService.BikeInfo)
+                    foreach (Bikeparts bike in bikes)
                     {
                         Console.WriteLine(bike.BikeType);
                         Console.WriteLine("Brand: " + bike.Brand);
@@ -258,9 +261,9 @@ namespace BikeStoreManagement
                     break;
                 case 2:
                     Console.WriteLine("-------------------------");
-                    BikeDataService.BikeInfo.RemoveAt(2);
+                    bikes.RemoveAt(2);
 
-                    foreach (Bikeparts bike in BikeDataService.BikeInfo)
+                    foreach (Bikeparts bike in bikes)
                     {
                         Console.WriteLine(bike.BikeType);
                         Console.WriteLine("Brand: " + bike.Brand);
@@ -276,9 +279,9 @@ namespace BikeStoreManagement
                     break;
                 case 3:
                     Console.WriteLine("-------------------------");
-                    BikeDataService.BikeInfo.RemoveAt(3);
+                    bikes.RemoveAt(3);
 
-                    foreach (Bikeparts bike in BikeDataService.BikeInfo)
+                    foreach (Bikeparts bike in bikes)
                     {
                         Console.WriteLine(bike.BikeType);
                         Console.WriteLine("Brand: " + bike.Brand);
@@ -293,9 +296,9 @@ namespace BikeStoreManagement
                     break;
                 case 4:
                     Console.WriteLine("-------------------------");
-                    BikeDataService.BikeInfo.RemoveAt(4);
+                    bikes.RemoveAt(4);
 
-                    foreach (Bikeparts bike in BikeDataService.BikeInfo)
+                    foreach (Bikeparts bike in bikes)
                     {
                         Console.WriteLine(bike.BikeType);
                         Console.WriteLine("Brand: " + bike.Brand);
@@ -309,9 +312,9 @@ namespace BikeStoreManagement
                     break;
                 case 5:
                     Console.WriteLine("-------------------------");
-                    BikeDataService.BikeInfo.RemoveAt(5);
+                    bikes.RemoveAt(5);
 
-                    foreach (Bikeparts bike in BikeDataService.BikeInfo)
+                    foreach (Bikeparts bike in bikes)
                     {
                         Console.WriteLine(bike.BikeType);
                         Console.WriteLine("Brand: " + bike.Brand);
@@ -325,9 +328,9 @@ namespace BikeStoreManagement
                     break;
                 case 6:
                     Console.WriteLine("-------------------------");
-                    BikeDataService.BikeInfo.RemoveAt(6);
+                    bikes.RemoveAt(6);
 
-                    foreach (Bikeparts bike in BikeDataService.BikeInfo)
+                    foreach (Bikeparts bike in bikes)
                     {
                         Console.WriteLine(bike.BikeType);
                         Console.WriteLine("Brand: " + bike.Brand);
