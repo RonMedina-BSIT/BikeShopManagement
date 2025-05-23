@@ -88,7 +88,6 @@ namespace BikeStoreManagement
                 Console.WriteLine($"FrameSet: {bike.Frameset}");
                 Console.WriteLine($"GroupSet: {bike.Groupset}");
                 Console.WriteLine($"WheelSet: {bike.Wheelset}");
-                Console.WriteLine("-------------------------");
             }
 
 
@@ -105,9 +104,13 @@ namespace BikeStoreManagement
             {
                 Menu();
             }
-            else
+            else if (response == "N") 
             {
                 Console.WriteLine("Thank you!");
+            }
+            else
+            {
+                 Console.WriteLine("Invalid input");
             }
         }
         static void Update()
@@ -115,6 +118,7 @@ namespace BikeStoreManagement
             List<Bikeparts> bikes = bikeDataService.GetAllBikes();
             DisplayBikes();
 
+            Console.WriteLine("-------------------------");
             Console.Write("Enter index of the bike to update: ");
             string input = Console.ReadLine();
             int index;
@@ -125,7 +129,7 @@ namespace BikeStoreManagement
                 Console.Write("Please enter a valid index: ");
                 input = Console.ReadLine();
             }
-
+            Console.WriteLine("-------------------------");
             Bikeparts selectedBike = bikes[index];
 
             Console.WriteLine("Select what bike part you would like to update:");
@@ -135,34 +139,41 @@ namespace BikeStoreManagement
             {
                 Console.WriteLine(action);
             }
-
+            Console.WriteLine("-------------------------");
             Console.Write("Enter option number: ");
             int updateOption = Convert.ToInt32(Console.ReadLine());
 
             switch (updateOption)
             {
                 case 1:
+                    Console.WriteLine("-------------------------");
                     Console.Write("Enter new price: ");
                     selectedBike.Price = Convert.ToInt32(Console.ReadLine());
                     break;
                 case 2:
+                    Console.WriteLine("-------------------------");
                     Console.Write("Enter new FrameSet: ");
                     selectedBike.Frameset = Console.ReadLine();
                     break;
                 case 3:
+                    Console.WriteLine("-------------------------");
                     Console.Write("Enter new GroupSet: ");
                     selectedBike.Groupset = Console.ReadLine();
                     break;
                 case 4:
+                    Console.WriteLine("-------------------------");
                     Console.Write("Enter new WheelSet: ");
                     selectedBike.Wheelset = Console.ReadLine();
                     break;
                 default:
+                    Console.WriteLine("-------------------------");
                     Console.WriteLine("Invalid option.");
+                    ShowMenu();
                     return;
             }
 
             bikeDataService.UpdateBike(index, selectedBike);
+            Console.WriteLine("-------------------------");
             Console.WriteLine("Update complete!");
             ShowMenu();
         }
@@ -206,7 +217,7 @@ namespace BikeStoreManagement
         {
             List<Bikeparts> bikes = bikeDataService.GetAllBikes();
             DisplayBikes();
-
+            Console.WriteLine("-------------------------");
             Console.Write("Enter index of the bike to delete: ");
             string input = Console.ReadLine();
             int index;

@@ -6,9 +6,9 @@ namespace BSM_DataService
         IBikeDataService bikeDataService;
         public BikeDataService()
         {
-           bikeDataService = new InMemoryBikeDataService();
-            
-          // bikeDataService= new TextFileDataService();
+           //bikeDataService = new InMemoryBikeDataService();
+           // bikeDataService= new TextFileDataService();
+           bikeDataService=new JsonFileDataService();
         }
         public List<Bikeparts> GetAllBikes()
         {
