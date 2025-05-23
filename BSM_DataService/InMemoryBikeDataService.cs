@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-/*namespace BSM_DataService
+namespace BSM_DataService
 {
     
     public class InMemoryBikeDataService:IBikeDataService
@@ -102,9 +102,12 @@ using System.Threading.Tasks;
            
         }
 
-        public void DeleteBike(int index)
+        public void DeleteBike(int index, Bikeparts bike)
         {
-           
+            if (index >= 0 && index < BikeInfo.Count)
+            {
+                BikeInfo.RemoveAt(index);
+            }
         }
     }
-    }*/
+    }
