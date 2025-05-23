@@ -31,7 +31,7 @@ namespace BikeStoreManagement
             Console.WriteLine("-------------------------");
             Console.WriteLine("SELECT ACTION");
 
-            string[] actions = new string[] {  "[1] Show Bikes ", "[2] Add Bike", "[3] Delete Bike","[4] Update Bike Info" };
+            string[] actions = new string[] { "[1] Show Bikes ", "[2] Add Bike", "[3] Delete Bike", "[4] Update Bike Info" };
             Console.WriteLine("ACTIONS");
 
             foreach (var action in actions)
@@ -48,7 +48,9 @@ namespace BikeStoreManagement
             {
                 case 1:
                     Console.WriteLine("-------------------------");
-                   DisplayBikes();
+                    DisplayBikes();
+                    ShowMenu();
+
                     break;
                 case 2:
                     Console.WriteLine("-------------------------");
@@ -57,11 +59,11 @@ namespace BikeStoreManagement
 
                 case 3:
                     Console.WriteLine("-------------------------");
-                   Delete();
+                    Delete();
                     break;
                 case 4:
                     Console.WriteLine("-------------------------");
-                   Update();
+                    Update();
                     break;
                 default:
                     Console.WriteLine("Invalid Action");
@@ -74,20 +76,21 @@ namespace BikeStoreManagement
         static void DisplayBikes()
         {
             List<Bikeparts> bikes = bikeDataService.GetAllBikes();
-            
 
-            foreach (Bikeparts bike in bikes)
+
+
+            for (int i = 0; i < bikes.Count; i++)
             {
-                Console.WriteLine(bike.BikeType);
-                Console.WriteLine("Brand: " + bike.Brand);
-                Console.WriteLine("Price:" + bike.Price);
-                Console.WriteLine("FrameSet:" + bike.Frameset);
-                Console.WriteLine("GroupSet:" + bike.Groupset);
-                Console.WriteLine("WheelSet: " + bike.Wheelset);
-                Console.WriteLine("\n");
-
+                var bike = bikes[i];
+                Console.WriteLine($"[{i}] Type: {bike.BikeType}");
+                Console.WriteLine($"Brand: {bike.Brand}");
+                Console.WriteLine($"Price: {bike.Price}");
+                Console.WriteLine($"FrameSet: {bike.Frameset}");
+                Console.WriteLine($"GroupSet: {bike.Groupset}");
+                Console.WriteLine($"WheelSet: {bike.Wheelset}");
+                Console.WriteLine("-------------------------");
             }
-            ShowMenu();
+
 
         }
 
@@ -110,73 +113,64 @@ namespace BikeStoreManagement
         static void Update()
         {
             List<Bikeparts> bikes = bikeDataService.GetAllBikes();
-            Console.WriteLine("-------------------------");
-            Console.WriteLine("Select a Brand you would like to Update");
-            int count = -1;
-            foreach (Bikeparts bike in bikes)
+            DisplayBikes();
+
+            Console.Write("Enter index of the bike to update: ");
+            string input = Console.ReadLine();
+            int index;
+
+            while (!BSMService.IsValidIndex(input, bikes.Count, out index))
             {
-                count++;
-                Console.WriteLine("[" + count + "]" + bike.Brand);
+                Console.WriteLine("Invalid index.");
+                Console.Write("Please enter a valid index: ");
+                input = Console.ReadLine();
             }
-            Console.WriteLine("-------------------------");
-            Console.Write("Enter Action: ");
 
-            int userAction = Convert.ToInt16(Console.ReadLine());
+            Bikeparts selectedBike = bikes[index];
 
-            Bikeparts selectedBrand = bikes[userAction];
-
-            Console.WriteLine("Select What Bike part you would like to update?");
-
-
+            Console.WriteLine("Select what bike part you would like to update:");
             string[] actions = new string[] { "[1] Price", "[2] FrameSet", "[3] GroupSet", "[4] WheelSet" };
-            Console.WriteLine("ACTIONS");
 
             foreach (var action in actions)
             {
                 Console.WriteLine(action);
             }
-            Console.WriteLine("-------------------------");
-            Console.Write("Enter Action: ");
 
-            int userActionBikepart = Convert.ToInt16(Console.ReadLine());
+            Console.Write("Enter option number: ");
+            int updateOption = Convert.ToInt32(Console.ReadLine());
 
-            switch (userActionBikepart)
+            switch (updateOption)
             {
                 case 1:
-                    Console.WriteLine("-------------------------");
                     Console.Write("Enter new price: ");
-                    selectedBrand.Price = Convert.ToInt32(Console.ReadLine());
-                    Console.WriteLine("Update complete!");
-                    ShowMenu();
-
+                    selectedBike.Price = Convert.ToInt32(Console.ReadLine());
                     break;
                 case 2:
-                    Console.WriteLine("-------------------------");
                     Console.Write("Enter new FrameSet: ");
-                    selectedBrand.Frameset = Console.ReadLine();
-                    Console.WriteLine("Update complete!");
-                    ShowMenu();
+                    selectedBike.Frameset = Console.ReadLine();
                     break;
                 case 3:
-                    Console.WriteLine("-------------------------");
                     Console.Write("Enter new GroupSet: ");
-                    selectedBrand.Groupset = Console.ReadLine();
-                    Console.WriteLine("Update complete!");
-                    ShowMenu();
+                    selectedBike.Groupset = Console.ReadLine();
                     break;
                 case 4:
-                    Console.WriteLine("-------------------------");
                     Console.Write("Enter new WheelSet: ");
-                    selectedBrand.Wheelset = Console.ReadLine();
-                    Console.WriteLine("Update complete!");
-                    ShowMenu();
+                    selectedBike.Wheelset = Console.ReadLine();
                     break;
+                default:
+                    Console.WriteLine("Invalid option.");
+                    return;
             }
+
+            bikeDataService.UpdateBike(index, selectedBike);
+            Console.WriteLine("Update complete!");
+            ShowMenu();
         }
+
         static void AddBike()
         {
-            List<Bikeparts> bikes = bikeDataService.GetAllBikes();
-            Bikeparts addNewBike = bikes[6];
+
+            Bikeparts addNewBike = new Bikeparts();
 
             Console.Write("Enter Bike type: ");
             addNewBike.BikeType = Console.ReadLine();
@@ -196,159 +190,39 @@ namespace BikeStoreManagement
             Console.Write("Enter Wheelset: ");
             addNewBike.Wheelset = Console.ReadLine();
 
+            bikeDataService.AddBike(addNewBike);
             Console.WriteLine("-------------------------");
             Console.WriteLine("Brand: " + addNewBike.Brand);
             Console.WriteLine("Price: " + addNewBike.Price);
             Console.WriteLine("Frameset: " + addNewBike.Frameset);
             Console.WriteLine("Groupset: " + addNewBike.Groupset);
             Console.WriteLine("Wheelset: " + addNewBike.Wheelset);
+
+
             ShowMenu();
         }
 
         static void Delete()
         {
             List<Bikeparts> bikes = bikeDataService.GetAllBikes();
-            Console.WriteLine("Select a Brand you would like to Delete");
-           
-            int count = -1;
-            foreach (Bikeparts bike in bikes)
+            DisplayBikes();
+
+            Console.Write("Enter index of the bike to delete: ");
+            string input = Console.ReadLine();
+            int index;
+
+            while (!BSMService.IsValidIndex(input, bikes.Count, out index))
             {
-                count++;
-                Console.WriteLine("[" + count + "]" + bike.Brand);
+                Console.WriteLine("Invalid index.");
+                Console.Write("Please enter a valid index: ");
+                input = Console.ReadLine();
             }
 
-            Console.WriteLine("-------------------------");
-            Console.Write("Enter Action: ");
-            int userAction = Convert.ToInt16(Console.ReadLine());
-
-            switch (userAction)
-            {
-                case 0:
-
-                    Console.WriteLine("-------------------------");
-                    bikes.RemoveAt(0);
-
-                    foreach (Bikeparts bike in bikes)
-                    {
-                        Console.WriteLine(bike.BikeType);
-                        Console.WriteLine("Brand: " + bike.Brand);
-                        Console.WriteLine("Price:" + bike.Price);
-                        Console.WriteLine("FrameSet:" + bike.Frameset);
-                        Console.WriteLine("GroupSet:" + bike.Groupset);
-                        Console.WriteLine("WheelSet: " + bike.Wheelset);
-                        Console.WriteLine("\n");
-                    }
-                    ShowMenu();
-
-
-                    break;
-                case 1:
-                    Console.WriteLine("-------------------------");
-                    bikes.RemoveAt(1);
-
-                    foreach (Bikeparts bike in bikes)
-                    {
-                        Console.WriteLine(bike.BikeType);
-                        Console.WriteLine("Brand: " + bike.Brand);
-                        Console.WriteLine("Price:" + bike.Price);
-                        Console.WriteLine("FrameSet:" + bike.Frameset);
-                        Console.WriteLine("GroupSet:" + bike.Groupset);
-                        Console.WriteLine("WheelSet: " + bike.Wheelset);
-                        Console.WriteLine("\n");
-                    }
-                    ShowMenu();
-
-                    break;
-                case 2:
-                    Console.WriteLine("-------------------------");
-                    bikes.RemoveAt(2);
-
-                    foreach (Bikeparts bike in bikes)
-                    {
-                        Console.WriteLine(bike.BikeType);
-                        Console.WriteLine("Brand: " + bike.Brand);
-                        Console.WriteLine("Price:" + bike.Price);
-                        Console.WriteLine("FrameSet:" + bike.Frameset);
-                        Console.WriteLine("GroupSet:" + bike.Groupset);
-                        Console.WriteLine("WheelSet: " + bike.Wheelset);
-                        Console.WriteLine("\n");
-                    }
-                    ShowMenu();
-
-
-                    break;
-                case 3:
-                    Console.WriteLine("-------------------------");
-                    bikes.RemoveAt(3);
-
-                    foreach (Bikeparts bike in bikes)
-                    {
-                        Console.WriteLine(bike.BikeType);
-                        Console.WriteLine("Brand: " + bike.Brand);
-                        Console.WriteLine("Price:" + bike.Price);
-                        Console.WriteLine("FrameSet:" + bike.Frameset);
-                        Console.WriteLine("GroupSet:" + bike.Groupset);
-                        Console.WriteLine("WheelSet: " + bike.Wheelset);
-                        Console.WriteLine("\n");
-                    }
-                    ShowMenu();
-
-                    break;
-                case 4:
-                    Console.WriteLine("-------------------------");
-                    bikes.RemoveAt(4);
-
-                    foreach (Bikeparts bike in bikes)
-                    {
-                        Console.WriteLine(bike.BikeType);
-                        Console.WriteLine("Brand: " + bike.Brand);
-                        Console.WriteLine("Price:" + bike.Price);
-                        Console.WriteLine("FrameSet:" + bike.Frameset);
-                        Console.WriteLine("GroupSet:" + bike.Groupset);
-                        Console.WriteLine("WheelSet: " + bike.Wheelset);
-                        Console.WriteLine("\n");
-                    }
-                    ShowMenu();
-                    break;
-                case 5:
-                    Console.WriteLine("-------------------------");
-                    bikes.RemoveAt(5);
-
-                    foreach (Bikeparts bike in bikes)
-                    {
-                        Console.WriteLine(bike.BikeType);
-                        Console.WriteLine("Brand: " + bike.Brand);
-                        Console.WriteLine("Price:" + bike.Price);
-                        Console.WriteLine("FrameSet:" + bike.Frameset);
-                        Console.WriteLine("GroupSet:" + bike.Groupset);
-                        Console.WriteLine("WheelSet: " + bike.Wheelset);
-                        Console.WriteLine("\n");
-                    }
-                    ShowMenu();
-                    break;
-                case 6:
-                    Console.WriteLine("-------------------------");
-                    bikes.RemoveAt(6);
-
-                    foreach (Bikeparts bike in bikes)
-                    {
-                        Console.WriteLine(bike.BikeType);
-                        Console.WriteLine("Brand: " + bike.Brand);
-                        Console.WriteLine("Price:" + bike.Price);
-                        Console.WriteLine("FrameSet:" + bike.Frameset);
-                        Console.WriteLine("GroupSet:" + bike.Groupset);
-                        Console.WriteLine("WheelSet: " + bike.Wheelset);
-                        Console.WriteLine("\n");
-                    }
-                    ShowMenu();
-                    break;
-                default:
-                    Console.WriteLine("Invalid Action");
-                    break;
-            }
+            bikeDataService.DeleteBike(index, bikes[index]);
+            Console.WriteLine("Bike successfully deleted.");
+            ShowMenu();
         }
-    
-        
+
     }
 
 }

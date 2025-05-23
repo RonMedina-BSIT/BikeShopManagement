@@ -1,4 +1,5 @@
 ﻿using BSM_Common;
+using BSM_DataService;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,8 +11,8 @@ namespace BSM_DataService
    public interface IBikeDataService
     {
         List<Bikeparts> GetAllBikes();
-        void AddBike(Bikeparts bike);
-        void UpdateBike(int index, Bikeparts updatedBike);
-        void DeleteBike(int index);
+        public void AddBike(Bikeparts bike);
+        public void UpdateBike(int index, Bikeparts bike);
+        public void DeleteBike(int index, Bikeparts bike);
     }
 }

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BSM_DataService
+/*namespace BSM_DataService
 {
     
     public class InMemoryBikeDataService:IBikeDataService
@@ -36,7 +36,7 @@ namespace BSM_DataService
             trek.Price = 25990;
             trek.Frameset = "Alpha Silver Aluminum, internal routing\nspring, preload, 42mm offset for 27.5'' wheel, 100mm";
             trek.Groupset = "Shimano Tourney TY300";
-            trek.Wheelset = "HUB:Formula DC-20, alloy, 6-bolt,\n32-hole, 20mm width, schrader valve\n Bontrager XR2 Comp, wire bead, 30 tpi, 29x2.20''";
+            trek.Wheelset = "HUB:Formula DC-20, alloy, 6-bolt,\n32-hole, 20mm width, schrader valve\n Bontrager XR2 Comp, wire bead, 30 tpi, 29x2.20";
             BikeInfo.Add(trek);
 
             Bikeparts orbea = new Bikeparts();
@@ -84,10 +84,7 @@ namespace BSM_DataService
             addBike.Wheelset = "";
             BikeInfo.Add(addBike);
         }
-        public void CreateInfoBike(Bikeparts bike)
-        {
-           
-        }
+        
         public List<Bikeparts> GetAllBikes()
         {
             return BikeInfo;
@@ -110,4 +107,4 @@ namespace BSM_DataService
            
         }
     }
-    }
+    }*/

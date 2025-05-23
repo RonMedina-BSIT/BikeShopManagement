@@ -6,7 +6,9 @@ namespace BSM_DataService
         IBikeDataService bikeDataService;
         public BikeDataService()
         {
-            bikeDataService = new InMemoryBikeDataService();
+            //bikeDataService = new InMemoryBikeDataService();
+            
+           bikeDataService= new TextFileDataService();
         }
         public List<Bikeparts> GetAllBikes()
         {
@@ -16,13 +18,13 @@ namespace BSM_DataService
         {
             bikeDataService.AddBike(bike);
         }
-        public void UpdateBike(int index, Bikeparts updatedBike)
+        public void UpdateBike(int index,Bikeparts bike)
         {
-            bikeDataService.UpdateBike(index, updatedBike);
+            bikeDataService.UpdateBike(index,bike);
         }
-        public void DeleteBike(int index)
+        public void DeleteBike(int index,Bikeparts bike)
         {
-            bikeDataService.DeleteBike(index);
+            bikeDataService.DeleteBike(index, bike);
         }
     }
 }
