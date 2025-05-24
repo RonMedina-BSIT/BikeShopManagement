@@ -8,7 +8,8 @@ namespace BSM_DataService
         {
            //bikeDataService = new InMemoryBikeDataService();
            // bikeDataService= new TextFileDataService();
-           bikeDataService=new JsonFileDataService();
+          // bikeDataService=new JsonFileDataService();
+          bikeDataService =new DBDataService();
         }
         public List<Bikeparts> GetAllBikes()
         {
