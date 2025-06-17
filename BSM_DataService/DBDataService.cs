@@ -42,9 +42,9 @@ namespace BSM_DataService
         {
             sqlConnection.Open();
 
-            var deleteStatement = $"DELETE FROM BikeInfo WHERE Brand = @Brand";
+            var deleteStatement = $"DELETE FROM BikeInfo WHERE Frameset = @Frameset";
             SqlCommand updateCommand = new SqlCommand(deleteStatement, sqlConnection);
-            updateCommand.Parameters.AddWithValue("@Brand", bike.Brand);
+            updateCommand.Parameters.AddWithValue("@Frameset", bike.Frameset);
 
             updateCommand.ExecuteNonQuery();
 
