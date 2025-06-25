@@ -35,10 +35,11 @@ namespace BSM_DataService
             return BikeInfo;
         }
 
-        public void AddBike(Bikeparts bike)
+        public bool AddBike(Bikeparts bike)
         {
             BikeInfo.Add(bike);
             WriteJsonDataToFile();
+            return true;
         }
         public void UpdateBike(int index, Bikeparts bike)
         {
@@ -52,13 +53,15 @@ namespace BSM_DataService
                 WriteJsonDataToFile();
             }
         }
-        public void DeleteBike(int index, Bikeparts bike)
+        public bool DeleteBike(int index, Bikeparts bike)
         {
             if (index >= 0 && index < BikeInfo.Count)
             {
                 BikeInfo.RemoveAt(index);
                 WriteJsonDataToFile();
             }
+            return true;
         }
+       
     }
 }

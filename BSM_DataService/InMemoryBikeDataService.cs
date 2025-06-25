@@ -89,9 +89,10 @@ namespace BSM_DataService
         {
             return BikeInfo;
         }
-        public void AddBike(Bikeparts bike)
+        public bool AddBike(Bikeparts bike)
         {
             BikeInfo.Add(bike);
+            return true;
         }
         public void UpdateBike(int index, Bikeparts updatedBike)
         {
@@ -102,12 +103,15 @@ namespace BSM_DataService
            
         }
 
-        public void DeleteBike(int index, Bikeparts bike)
+        public bool DeleteBike(int index, Bikeparts bike)
         {
             if (index >= 0 && index < BikeInfo.Count)
             {
                 BikeInfo.RemoveAt(index);
+
             }
+            return true;
         }
-    }
+       
+        }
     }

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BSM_DataService
 {
-    class DBDataService : IBikeDataService
+    class DBDataService : IBikeDataServiceForDB
     {
         static string connectionString
        = "Data Source =MSI\\SQLEXPRESS; Initial Catalog = BSM; Integrated Security = True; TrustServerCertificate=True;";
@@ -19,7 +19,7 @@ namespace BSM_DataService
         {
             sqlConnection = new SqlConnection(connectionString);
         }
-        public void AddBike(Bikeparts bike)
+        public bool AddBike(Bikeparts bike)
         {
             var insertStatement = "INSERT INTO BikeInfo VALUES (@BikeType, @Brand, @Price, @Frameset, @Groupset, @Wheelset)";
 
@@ -36,9 +36,10 @@ namespace BSM_DataService
             insertCommand.ExecuteNonQuery();
 
             sqlConnection.Close();
+            return true;
         }
 
-        public void DeleteBike(int index, Bikeparts bike)
+        public bool DeleteBike(Bikeparts bike)
         {
             sqlConnection.Open();
 
@@ -49,7 +50,10 @@ namespace BSM_DataService
             updateCommand.ExecuteNonQuery();
 
             sqlConnection.Close();
+            return true;
         }
+
+        
 
         public List<Bikeparts> GetAllBikes()
         {
@@ -81,7 +85,7 @@ namespace BSM_DataService
             return Bikeinfo; ;
         }
 
-        public void UpdateBike(int index, Bikeparts bike)
+        public void UpdateBike(Bikeparts bike)
         {
             sqlConnection.Open();
 

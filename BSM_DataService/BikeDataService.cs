@@ -8,24 +8,25 @@ namespace BSM_DataService
         {
            //bikeDataService = new InMemoryBikeDataService();
            // bikeDataService= new TextFileDataService();
-          // bikeDataService=new JsonFileDataService();
-          bikeDataService =new DBDataService();
+          bikeDataService=new JsonFileDataService();
+        
         }
         public List<Bikeparts> GetAllBikes()
         {
             return bikeDataService.GetAllBikes();
         }
-        public void AddBike(Bikeparts bike)
+        public bool AddBike(Bikeparts bike)
         {
-            bikeDataService.AddBike(bike);
+            return bikeDataService.AddBike(bike);
         }
         public void UpdateBike(int index,Bikeparts bike)
         {
             bikeDataService.UpdateBike(index,bike);
         }
-        public void DeleteBike(int index,Bikeparts bike)
+        public bool DeleteBike(int index,Bikeparts bike)
         {
-            bikeDataService.DeleteBike(index, bike);
+           return bikeDataService.DeleteBike(index,bike);
         }
+      
     }
 }

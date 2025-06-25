@@ -63,11 +63,12 @@ namespace BSM_DataService
             return BikeInfo;
         }
 
-        public void AddBike(Bikeparts bike)
+        public bool AddBike(Bikeparts bike)
         {
             var newLine = $"{bike.BikeType}|{bike.Brand}|{bike.Price}|{bike.Frameset}|{bike.Groupset}|{bike.Wheelset}";
 
             File.AppendAllText(filepath, newLine);
+            return true;
         }
         public void UpdateBike(int index,Bikeparts bike)
         {
@@ -82,7 +83,7 @@ namespace BSM_DataService
            
          WriteDataToFile();
         }
-        public void DeleteBike(int index,Bikeparts bike)
+        public bool DeleteBike(int index,Bikeparts bike)
         {
             index = -1;
             for (int i = 0; i < BikeInfo.Count; i++)
@@ -96,6 +97,8 @@ namespace BSM_DataService
             BikeInfo.RemoveAt(index);
 
             WriteDataToFile();
+            return true;
         }
+       
     }
 }

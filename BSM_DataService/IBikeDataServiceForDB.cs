@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace BSM_DataService
 {
-   public interface IBikeDataService
+    public interface IBikeDataServiceForDB
     {
         List<Bikeparts> GetAllBikes();
         public bool AddBike(Bikeparts bike);
-        public void UpdateBike(int index, Bikeparts bike);
-        public bool DeleteBike(int index, Bikeparts bike);
-       
+        public void UpdateBike(Bikeparts bike);
+        public bool DeleteBike(Bikeparts bike);
+
     }
 }
