@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="6.0.2" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="BSM_BusinessDataLogic">
+      <HintPath>..\BikeStoreManagement\BSM_BusinessDataLogic\bin\Debug\net8.0\BSM_BusinessDataLogic.dll</HintPath>
+    </Reference>
+    <Reference Include="BSM_Common">
+      <HintPath>..\BikeStoreManagement\BSM_BusinessDataLogic\bin\Debug\net8.0\BSM_Common.dll</HintPath>
+    </Reference>
+    <Reference Include="BSM_DataService">
+      <HintPath>..\BikeStoreManagement\BSM_BusinessDataLogic\bin\Debug\net8.0\BSM_DataService.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>
