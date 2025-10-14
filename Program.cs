@@ -22,7 +22,6 @@ namespace BikeStoreManagement
                 Console.Write("Enter Admin's Password to Continue: ");
                 password = Console.ReadLine();
               
-                //tryyyyyyy
             }
 
             Menu();
