@@ -69,7 +69,6 @@ namespace BikeStoreManagement
                     Console.WriteLine("Invalid Action");
                     ShowMenu();
                     break;
-
             }
 
         }
@@ -88,6 +87,7 @@ namespace BikeStoreManagement
                 Console.WriteLine($"FrameSet: {bike.Frameset}");
                 Console.WriteLine($"GroupSet: {bike.Groupset}");
                 Console.WriteLine($"WheelSet: {bike.Wheelset}");
+                Console.WriteLine("-------------------------");
             }
 
 
@@ -106,11 +106,14 @@ namespace BikeStoreManagement
             }
             else if (response == "N") 
             {
-                Console.WriteLine("Thank you!");
+                Console.WriteLine("-------------------------");
+                Console.WriteLine("Thank you for using the system!");
             }
             else
             {
-                 Console.WriteLine("Invalid input");
+                Console.WriteLine("-------------------------");
+                Console.WriteLine("Invalid input");
+                ShowMenu();
             }
         }
         static void Update()
@@ -203,6 +206,11 @@ namespace BikeStoreManagement
 
             bikeDataService.AddBike(addNewBike);
             Console.WriteLine("-------------------------");
+            Console.WriteLine("Be advised it takes a couple of second to add a bike. Thank you for your patience!");
+            BSMEmailService emailService = new BSMEmailService();
+            emailService.SendEmail(addNewBike);
+            Console.WriteLine("-------------------------");
+            Console.WriteLine("Bike successfully added!");
             Console.WriteLine("Brand: " + addNewBike.Brand);
             Console.WriteLine("Price: " + addNewBike.Price);
             Console.WriteLine("Frameset: " + addNewBike.Frameset);
@@ -233,6 +241,7 @@ namespace BikeStoreManagement
             Console.WriteLine("Bike successfully deleted.");
             ShowMenu();
         }
+      
 
     }
 
