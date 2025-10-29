@@ -1,6 +1,7 @@
 ﻿using BSM_BusinessDataLogic;
 using BSM_Common;
 using BSM_DataService;
+using BSM_BusinessDataLogic;
 
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -11,6 +12,11 @@ namespace BSM_WebApplication.Controllers
     [ApiController]
     public class BSM_Controller : ControllerBase
     {
+        private readonly BSMService _bsmService;
+        public BSM_Controller(BSMService bsmService)
+        {
+            _bsmService = bsmService;
+        }
         BSM_DataService.BikeDataServiceForDB bikeDataService = new BSM_DataService.BikeDataServiceForDB();
         List<Bikeparts> BikeInfo = new List<Bikeparts>();
 
@@ -22,9 +28,12 @@ namespace BSM_WebApplication.Controllers
             return BikeInfo;
         }
         [HttpPost]
-        public bool AddBike(Bikeparts bike)
+        public IActionResult AddBike([FromForm]Bikeparts bike)
         {
-           return bikeDataService.AddBike(bike);
+            _bsmService.AddbikeAndNotify(bike, "test@inbox.mailtrap.io");
+            bikeDataService.AddBike(bike);
+            return Ok(new { message = "Bike added successfully." });
+           
         }
 
         [HttpDelete]

@@ -11,6 +11,8 @@ namespace BSM_BusinessDataLogic
     
     public class BSMService
     {
+        private readonly BikeDataService _bikeDataService;
+        private readonly BSMEmailService _emailService;
 
         static string adminpassword = "admin";
 
@@ -31,7 +33,16 @@ namespace BSM_BusinessDataLogic
                 }
                 return true;
             }
-            
+        public BSMService(BikeDataService bikeDataService, BSMEmailService emailService)
+        {
+            _bikeDataService = bikeDataService;
+            _emailService = emailService;
+        }
+        public void AddbikeAndNotify(Bikeparts newBike, string email) {
+            _bikeDataService.AddBike(newBike);
+            _emailService.SendEmail(newBike, email);
+        }
+
 
     }
 }

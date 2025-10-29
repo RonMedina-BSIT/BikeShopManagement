@@ -1,0 +1,18 @@
+[
+  {
+    "BikeType": "MTB",
+    "Brand": "Weapon",
+    "Price": 15000,
+    "Frameset": "Spear",
+    "Groupset": "Alivio",
+    "Wheelset": "Machine 11"
+  },
+  {
+    "BikeType": "Gravel Bike",
+    "Brand": "Kespor",
+    "Price": 26000,
+    "Frameset": "Mclaren 2023",
+    "Groupset": "Shimano Sora",
+    "Wheelset": "Machine 11"
+  }
+]

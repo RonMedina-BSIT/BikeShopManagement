@@ -7,16 +7,24 @@ using MailKit.Net.Smtp;
 using MimeKit;
 using BSM_DataService;
 using BSM_Common;
+using Microsoft.Extensions.Configuration;
+using MailKit.Security;
+
 
 namespace BSM_BusinessDataLogic
 {
   public class BSMEmailService
     {
-       public void SendEmail(Bikeparts GetAllBikes)
+        private readonly IConfiguration _configuration;
+        public BSMEmailService(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
+        public void SendEmail(Bikeparts GetAllBikes, string recipientEmail)
         {
             var message = new MimeMessage();
-            message.From.Add(new MailboxAddress("Bike Shop System", "bikeshop@test.com"));
-            message.To.Add(new MailboxAddress("Ron Test Inbox", "test@inbox.mailtrap.io"));
+            message.From.Add(new MailboxAddress(_configuration["EmailSettings:FromName"], _configuration["EmailSettings:FromEmail"]));
+            message.To.Add(new MailboxAddress("Test Inbox", recipientEmail));
             message.Subject = "Available Bikes";
             message.Body = new TextPart("plain")
             {
@@ -32,18 +40,18 @@ namespace BSM_BusinessDataLogic
             };
             using (var client=new SmtpClient())
             {
-                var smtpHost = "sandbox.smtp.mailtrap.io";
-                var smtpPort = 2525;
-                var tls=MailKit.Security.SecureSocketOptions.StartTls;
-                client.Connect(smtpHost, smtpPort, tls);
-
-                var userName = "6a2fa64ffaa0b4";
-                var password = "363e415d45f55b";
-
-                client.Authenticate(userName, password);
-
+                client.Connect(
+                    _configuration["EmailSettings:SmtpHost"],
+                    int.Parse(_configuration["EmailSettings:SmtpPort"]),
+                    SecureSocketOptions.StartTls
+                    );
+                client.Authenticate(
+                    _configuration["EmailSettings:Username"],
+                    _configuration["EmailSettings:Password"]
+                    );
                 client.Send(message);
                 client.Disconnect(true);
+
             }
         }
     }

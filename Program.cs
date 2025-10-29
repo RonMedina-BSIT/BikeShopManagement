@@ -208,8 +208,7 @@ namespace BikeStoreManagement
             bikeDataService.AddBike(addNewBike);
             Console.WriteLine("-------------------------");
             Console.WriteLine("Be advised it takes a couple of second to add a bike. Thank you for your patience!");
-            BSMEmailService emailService = new BSMEmailService();
-            emailService.SendEmail(addNewBike);
+            
             Console.WriteLine("-------------------------");
             Console.WriteLine("Bike successfully added!");
             Console.WriteLine("Brand: " + addNewBike.Brand);

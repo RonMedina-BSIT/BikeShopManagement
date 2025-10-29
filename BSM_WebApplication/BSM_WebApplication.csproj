@@ -12,15 +12,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="BSM_BusinessDataLogic">
-      <HintPath>..\BikeStoreManagement\BSM_BusinessDataLogic\bin\Debug\net8.0\BSM_BusinessDataLogic.dll</HintPath>
-    </Reference>
-    <Reference Include="BSM_Common">
-      <HintPath>..\BikeStoreManagement\BSM_BusinessDataLogic\bin\Debug\net8.0\BSM_Common.dll</HintPath>
-    </Reference>
-    <Reference Include="BSM_DataService">
-      <HintPath>..\BikeStoreManagement\BSM_BusinessDataLogic\bin\Debug\net8.0\BSM_DataService.dll</HintPath>
-    </Reference>
+    <ProjectReference Include="..\BSM_BusinessDataLogic\BSM_BusinessDataLogic.csproj" />
+    <ProjectReference Include="..\BSM_Common\BSM_Common.csproj" />
+    <ProjectReference Include="..\BSM_DataService\BSM_DataService.csproj" />
   </ItemGroup>
 
 </Project>
